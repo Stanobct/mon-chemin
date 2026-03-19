@@ -70,7 +70,9 @@ const CCC = [
   {ref:'CCC 1023', q:'Qu\'est-ce que le ciel ?', a:'Le ciel est l\'état de bonheur suprême dans lequel ceux qui meurent en état de grâce vivent en communion parfaite avec Dieu, la Vierge Marie, les anges et les saints. C\'est la fin ultime et la réalisation des aspirations profondes de l\'homme.'},
 ];
 
-let currentIdx = parseInt(localStorage.getItem('ccc_idx') || dayOfYear) % CCC.length;
+const today = new Date();
+const dayOfYear = Math.floor((today - new Date(today.getFullYear(),0,0)) / 86400000);
+let currentIdx = parseInt(localStorage.getItem('ccc_idx') !== null ? localStorage.getItem('ccc_idx') : dayOfYear) % CCC.length;
 const q = CCC[currentIdx];
 const seen = JSON.parse(localStorage.getItem('ccc_seen') || '[]');
 
