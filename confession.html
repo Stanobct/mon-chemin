@@ -51,9 +51,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--deep);
 <div class="content">
   <div class="page-tabs">
     <div class="page-tab active" onclick="showTab('suivi')">Suivi</div>
-    <div class="page-tab" onclick="showTab('examen')">Examen</div>
     <div class="page-tab" onclick="showTab('prieres')">Prières</div>
-    <div class="page-tab" onclick="showTab('guide')">Guide</div>
   </div>
 
   <div id="tab-suivi">
@@ -158,8 +156,8 @@ let counts = JSON.parse(localStorage.getItem('conf_exam') || '{}');
 let confDate = localStorage.getItem('conf_date') || null;
 
 function showTab(name) {
-  ['suivi','examen','prieres','guide'].forEach(t => document.getElementById('tab-'+t).style.display = t===name?'block':'none');
-  document.querySelectorAll('.page-tab').forEach((tab,i) => tab.classList.toggle('active', ['suivi','examen','prieres','guide'][i]===name));
+  ['suivi','prieres'].forEach(t => document.getElementById('tab-'+t).style.display = t===name?'block':'none');
+  document.querySelectorAll('.page-tab').forEach((tab,i) => tab.classList.toggle('active', ['suivi','prieres'][i]===name));
   if(name==='suivi') renderTracker();
   if(name==='examen') renderExam();
 }
