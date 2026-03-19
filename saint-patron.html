@@ -18,18 +18,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--deep);
 .back-link{font-size:13px;color:var(--gold);text-decoration:none;position:absolute;left:20px;top:56px;opacity:0.85}
 .content{max-width:430px;margin:0 auto;padding:16px}
 .section-label{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:8px;font-weight:500;margin-top:16px}
-.saint-btn{width:100%;background:white;border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;text-align:left;margin-bottom:10px;cursor:pointer;transition:background 0.2s;display:flex;align-items:center;gap:14px}
-.saint-btn:hover{background:var(--gold-pale)}
-.saint-btn.active{background:var(--gold-pale);border-color:var(--gold)}
-.saint-initial{width:44px;height:44px;border-radius:50%;background:var(--gold-pale);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--brown);flex-shrink:0}
-.saint-btn-text h3{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--deep)}
-.saint-btn-text p{font-size:12px;color:var(--muted);margin-top:2px}
-.saint-view{display:none}
-.saint-view.open{display:block}
-.back-btn{background:transparent;border:none;color:var(--gold);font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;padding:0;margin-bottom:14px;display:none}
-.back-btn.show{display:block}
-.saint-hero{background:var(--deep);border-radius:var(--radius);padding:24px 20px;margin-bottom:14px;text-align:center}
-.saint-initial-big{width:64px;height:64px;border-radius:50%;background:rgba(212,176,106,0.2);border:1.5px solid var(--gold-light);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--gold-light);margin:0 auto 12px}
+.saint-hero{background:var(--deep);border-radius:var(--radius);padding:24px 20px;margin-bottom:16px;text-align:center}
+.saint-initial{width:64px;height:64px;border-radius:50%;background:rgba(212,176,106,0.2);border:1.5px solid var(--gold-light);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--gold-light);margin:0 auto 12px}
 .saint-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--gold-light);margin-bottom:4px}
 .saint-dates{font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:4px}
 .saint-feast{font-size:12px;color:rgba(255,255,255,0.5)}
@@ -39,6 +29,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--deep);
 .prayer-card{background:var(--gold-pale);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:10px}
 .prayer-card h3{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--deep);margin-bottom:12px;text-align:center}
 .prayer-text{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--deep);line-height:1.9;font-style:italic;white-space:pre-line;text-align:center}
+.setup-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px}
+.setup-card h3{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--deep);margin-bottom:10px}
+.setup-input{width:100%;border:1px solid var(--border);border-radius:var(--radius-sm);padding:11px 12px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--deep);background:var(--cream);margin-bottom:8px}
+.setup-input:focus{outline:none;border-color:var(--gold)}
+.btn-gold{width:100%;padding:11px;background:var(--gold);border:none;border-radius:var(--radius-sm);color:white;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer}
+.btn-outline{width:100%;padding:11px;background:transparent;border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--brown);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;margin-top:6px}
 </style>
 </head>
 <body>
@@ -47,37 +43,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--deep);
   <div class="app-title">Mon saint patron</div>
   <div class="app-subtitle">Intercession et modèle de sainteté</div>
 </div>
-<div class="content">
-  <button class="back-btn" id="back-btn" onclick="closeAll()">← Retour</button>
-
-  <div id="list-view">
-    <div class="saint-btn" onclick="open('joseph')">
-      <div class="saint-initial">J</div>
-      <div class="saint-btn-text"><h3>Saint Joseph</h3><p>Fête le 19 mars et 1er mai</p></div>
-    </div>
-    <div class="saint-btn" onclick="open('thomas')">
-      <div class="saint-initial">T</div>
-      <div class="saint-btn-text"><h3>Saint Thomas d'Aquin</h3><p>Fête le 28 janvier</p></div>
-    </div>
-    <div class="saint-btn" onclick="open('stanislas')">
-      <div class="saint-initial">S</div>
-      <div class="saint-btn-text"><h3>Saint Stanislas Kostka</h3><p>Fête le 13 novembre</p></div>
-    </div>
-  </div>
-
-  <div class="saint-view" id="view-joseph">
-    <div class="saint-hero">
-      <div class="saint-initial-big">J</div>
-      <div class="saint-name">Saint Joseph</div>
-      <div class="saint-dates">Ier siècle</div>
-      <div class="saint-feast">Fête le 19 mars et le 1er mai</div>
-    </div>
-    <div class="section-label">Sa vie</div>
-    <div class="info-card"><h3>Vie</h3><p>Joseph de Nazareth, époux de la Vierge Marie et père nourricier de Jésus, est l'un des saints les plus vénérés de l'Église. Charpentier de son métier, il fut choisi par Dieu pour veiller sur le Fils de Dieu fait homme. Homme juste et silencieux, il ne parle pas une seule fois dans l'Évangile. Il protégea Marie et Jésus lors de la fuite en Égypte.</p></div>
-    <div class="info-card"><h3>Patronat</h3><p>Patron de l'Église universelle, des travailleurs, des pères de famille, des artisans et de la bonne mort.</p></div>
-    <div class="info-card"><h3>Pourquoi l'invoquer ?</h3><p>Saint Joseph est particulièrement invoqué pour la chasteté, la protection de la famille et la force silencieuse dans le combat spirituel. Sa pureté dans son amour pour Marie en fait un intercesseur puissant.</p></div>
-    <div class="section-label">Prière</div>
-    <div class="prayer-card"><h3>Prière à Saint Joseph</h3><div class="prayer-text">Saint Joseph, gardien de la Sainte Famille,
+<div class="content" id="main-content"></div>
+<script>
+const SAINTS_DB = {
+  'joseph': {
+    name: 'Saint Joseph', initial: 'J', dates: 'Ier siècle', feast: 'Fête le 19 mars et 1er mai',
+    vie: 'Joseph de Nazareth, époux de la Vierge Marie et père nourricier de Jésus, est l\'un des saints les plus vénérés de l\'Église. Charpentier de son métier, il fut choisi par Dieu pour veiller sur le Fils de Dieu fait homme. Homme juste et silencieux, il ne parle pas une seule fois dans l\'Évangile — ses actes témoignent pour lui. Il protégea Marie et Jésus lors de la fuite en Égypte, et éleva Jésus dans la foi d\'Israël.',
+    patronat: 'Patron de l\'Église universelle, des travailleurs, des pères de famille, des artisans, de la bonne mort.',
+    intercession: 'Saint Joseph est particulièrement invoqué pour la chasteté, la protection de la famille, le travail, et pour obtenir une bonne mort. Sa pureté dans son amour pour Marie en fait un intercesseur puissant dans le combat pour la pureté.',
+    priere: `Saint Joseph, gardien de la Sainte Famille,
 toi qui as protégé Marie et Jésus
 avec une force silencieuse et une foi sans faille,
 
@@ -85,30 +59,90 @@ protège-moi à mon tour
 dans les combats de ma vie.
 
 Intercède pour moi
-afin que je garde mon coeur pur,
+afin que je garde mon cœur pur,
 que je sois fidèle à mes engagements,
 et que je serve ceux que Dieu m'a confiés.
 
-Apprends-moi à agir sans chercher la gloire,
+Père adoptif du Seigneur,
+apprends-moi à agir sans chercher la gloire,
 à aimer sans compter,
 et à me remettre entre les mains de Dieu.
 
-Amen.</div></div>
-  </div>
+Amen.`
+  },
+  'augustin': {
+    name: 'Saint Augustin', initial: 'A', dates: '354 – 430', feast: 'Fête le 28 août',
+    vie: 'Né à Thagaste en Afrique du Nord, Augustin mena une jeunesse dissolue avant d\'être converti par les prières de sa mère Monique et les prédications de saint Ambroise. Baptisé à 33 ans, il devint évêque d\'Hippone et l\'un des plus grands théologiens de l\'Église. Auteur des Confessions et de la Cité de Dieu, il est Père et Docteur de l\'Église.',
+    patronat: 'Patron des théologiens, des brasseurs, des imprimeurs, et de ceux qui luttent contre des vices.',
+    intercession: 'Saint Augustin est l\'intercesseur par excellence pour ceux qui luttent contre des habitudes difficiles à quitter. Sa propre conversion, tardive et douloureuse, en fait un compagnon incomparable pour qui cherche à se libérer.',
+    priere: `Seigneur, tu nous as faits pour Toi,
+et notre cœur est sans repos
+tant qu'il ne repose pas en Toi.
 
-  <div class="saint-view" id="view-thomas">
-    <div class="saint-hero">
-      <div class="saint-initial-big">T</div>
-      <div class="saint-name">Saint Thomas d'Aquin</div>
-      <div class="saint-dates">1225 – 1274</div>
-      <div class="saint-feast">Fête le 28 janvier</div>
-    </div>
-    <div class="section-label">Sa vie</div>
-    <div class="info-card"><h3>Vie</h3><p>Né dans une famille noble italienne, Thomas entra chez les Dominicains contre la volonté de sa famille. Élève d'Albert le Grand, il devint le plus grand théologien scolastique de l'histoire. Sa Somme Théologique synthétise la foi chrétienne et la philosophie. Surnommé le Docteur Angélique, il est Docteur de l'Église et patron des universités.</p></div>
-    <div class="info-card"><h3>Patronat</h3><p>Patron des universités, des étudiants, des théologiens et des écoles catholiques.</p></div>
-    <div class="info-card"><h3>Pourquoi l'invoquer ?</h3><p>Saint Thomas est invoqué pour la clarté de l'intelligence et la pureté de vie. Selon la tradition, il avait reçu de Dieu le don de la pureté après avoir repoussé une tentation. Il disait : je comprends tout ce que je comprends à partir de la prière.</p></div>
-    <div class="section-label">Prière</div>
-    <div class="prayer-card"><h3>Prière à Saint Thomas d'Aquin</h3><div class="prayer-text">Saint Thomas d'Aquin,
+Saint Augustin, toi qui as tâtonné si longtemps
+avant de trouver la lumière,
+intercède pour moi.
+
+Apprends-moi à ne pas désespérer
+de ma lenteur à me convertir.
+Obtiens-moi la grâce de la persévérance
+et la douceur de trouver Dieu
+au fond de mon cœur.
+
+Amen.`
+  },
+  'jean-paul-ii': {
+    name: 'Saint Jean-Paul II', initial: 'JP', dates: '1920 – 2005', feast: 'Fête le 22 octobre',
+    vie: 'Karol Józef Wojtyla, né en Pologne, fut élu pape en 1978. Son pontificat de 26 ans marqua l\'histoire de l\'Église. Philosophe, poète, acteur de théâtre, mystique et athlète, il développa la Théologie du Corps — une vision révolutionnaire de l\'amour humain et de la pureté. Il fut béatifié en 2011 et canonisé en 2014.',
+    patronat: 'Patron des jeunes, des familles, du mouvement Theology of the Body.',
+    intercession: 'Saint Jean-Paul II est un intercesseur particulièrement adapté au combat pour la chasteté et la pureté du regard. Sa Théologie du Corps offre un fundament spirituel pour comprendre la dignité du corps et de l\'amour.',
+    priere: `Saint Jean-Paul II,
+toi qui as enseigné que le corps humain
+est un temple et un sacrement,
+
+aide-moi à voir les autres
+avec le regard de Dieu —
+non comme des objets,
+mais comme des personnes aimées.
+
+Intercède pour moi
+dans mon combat pour la pureté.
+Obtiens-moi la grâce
+de comprendre que l\'amour véritable attend,
+non parce qu'il le doit,
+mais parce qu'il le veut.
+
+Amen.`
+  },
+  'benoit': {
+    name: 'Saint Benoît', initial: 'B', dates: 'v.480 – v.547', feast: 'Fête le 11 juillet',
+    vie: 'Né à Nursie en Italie, Benoît fonda le Mont-Cassin et rédigea une Règle monastique qui allait structurer le monachisme occidental pour des siècles. Sa devise — Ora et Labora, Prie et Travaille — résume une spiritualité équilibrée entre prière, travail et lectio divina. Sa médaille est l\'une des plus connues de l\'Église catholique.',
+    patronat: 'Patron de l\'Europe, des moines, des spéléologues, contre la sorcellerie et les poisons.',
+    intercession: 'La médaille de saint Benoît est une puissante protection contre les tentations du démon. Saint Benoît est invoqué pour la chasteté, l\'ordre de vie, et la protection contre le mal.',
+    priere: `Saint Benoît, père des moines d\'Occident,
+toi dont la médaille est une armure contre le mal,
+
+protège-moi des pièges du démon
+et des tentations qui m\'assaillent.
+
+Que ta croix soit sur moi
+comme un rempart :
+Vade retro Satana —
+arrière, Satan !
+
+Aide-moi à construire ma vie
+sur la prière et le travail,
+sur la stabilité et l\'obéissance,
+sur l\'amour de Dieu et de mes frères.
+
+Amen.`
+  },
+  'thomas-aquin': {
+    name: 'Saint Thomas d\'Aquin', initial: 'T', dates: '1225 – 1274', feast: 'Fête le 28 janvier',
+    vie: 'Né dans une famille noble italienne, Thomas entra chez les Dominicains contre la volonté de sa famille. Élève d\'Albert le Grand à Cologne, il devint le plus grand théologien scolastique de l\'histoire. Sa Somme Théologique synthétise la foi chrétienne et la philosophie d\'Aristote. Surnommé le "Docteur Angélique", il est Docteur de l\'Église et patron des universités, des étudiants et des théologiens.',
+    patronat: 'Patron des universités, des étudiants, des théologiens, des libraires et des écoles catholiques.',
+    intercession: 'Saint Thomas est invoqué pour la clarté de l\'intelligence, l\'amour de la vérité et la pureté de vie. Il avait coutume de dire : "Je comprends tout ce que je comprends à partir de la prière." Il est aussi un modèle de chasteté — selon la tradition, il avait reçu de Dieu le don de la pureté après avoir repoussé la tentation.',
+    priere: `Saint Thomas d'Aquin,
 Docteur Angélique,
 toi qui as aimé la vérité
 par-dessus tout,
@@ -116,7 +150,7 @@ par-dessus tout,
 illumine mon intelligence
 afin que je connaisse mieux Dieu
 et que cette connaissance
-enflamme mon coeur.
+enflamme mon cœur.
 
 Obtiens-moi la grâce
 d'ordonner ma vie selon la raison
@@ -124,33 +158,27 @@ d'ordonner ma vie selon la raison
 et de garder pur le temple
 de mon corps et de mon âme.
 
-Enseigne-moi à prier
+Tu as dit :
+"Je comprends tout à partir de la prière" —
+enseigne-moi à prier
 avant d'agir.
 
-Amen.</div></div>
-  </div>
-
-  <div class="saint-view" id="view-stanislas">
-    <div class="saint-hero">
-      <div class="saint-initial-big">S</div>
-      <div class="saint-name">Saint Stanislas Kostka</div>
-      <div class="saint-dates">1550 – 1568</div>
-      <div class="saint-feast">Fête le 13 novembre</div>
-    </div>
-    <div class="section-label">Sa vie</div>
-    <div class="info-card"><h3>Vie</h3><p>Né en Pologne dans une famille noble, Stanislas manifesta dès l'enfance une dévotion extraordinaire. Contre la volonté de son père, il quitta tout pour entrer dans la Compagnie de Jésus à Rome. Il mourut à seulement 18 ans, quelques mois après son entrée au noviciat, dans une joie mystique. Canonisé en 1726.</p></div>
-    <div class="info-card"><h3>Patronat</h3><p>Patron de la jeunesse polonaise, des novices et des jeunes qui désirent se consacrer à Dieu.</p></div>
-    <div class="info-card"><h3>Pourquoi l'invoquer ?</h3><p>Saint Stanislas est un intercesseur proche des jeunes qui luttent pour la pureté. Sa jeunesse, sa pureté absolue et sa joie dans le sacrifice en font un modèle pour le combat spirituel.</p></div>
-    <div class="section-label">Prière</div>
-    <div class="prayer-card"><h3>Prière à Saint Stanislas</h3><div class="prayer-text">Saint Stanislas, jeune homme de Dieu,
-toi qui as tout quitté
+Amen.`
+  },
+  'stanislas': {
+    name: 'Saint Stanislas Kostka', initial: 'S', dates: '1550 – 1568', feast: 'Fête le 13 novembre',
+    vie: 'Né en Pologne dans une famille noble, Stanislas manifesta dès l\'enfance une dévotion extraordinaire. Contre la volonté de son père et de son frère aîné, il quitta tout pour entrer dans la Compagnie de Jésus à Rome. Il mourut à seulement 18 ans, quelques mois après son entrée au noviciat, dans une joie mystique. Canonisé en 1726, il est l\'un des grands saints de la jeunesse.',
+    patronat: 'Patron de la jeunesse polonaise, des novices et des jeunes qui désirent se consacrer à Dieu.',
+    intercession: 'Saint Stanislas est un intercesseur particulièrement proche des jeunes qui luttent pour la pureté et qui cherchent à suivre Dieu malgré les obstacles familiaux ou sociaux. Sa jeunesse, sa pureté absolue et sa joie dans le sacrifice en font un modèle pour le combat spirituel.',
+    priere: `Saint Stanislas, jeune homme de Dieu,
+toi qui as tout quitté à dix-sept ans
 pour suivre le Christ sans regarder en arrière,
 
 obtiens-moi la grâce
 de ne pas m'attacher aux choses de ce monde
 plus qu'à Dieu.
 
-Toi qui as gardé ton coeur pur
+Toi qui as gardé ton cœur pur
 au milieu d'un monde qui te tentait,
 intercède pour moi
 dans mon propre combat.
@@ -160,31 +188,99 @@ m'enseigne que la liberté chrétienne
 vaut infiniment plus
 que tout ce à quoi on renonce.
 
-Amen.</div></div>
-  </div>
+Amen.`
+  },
+    name: 'Sainte Thérèse de l\'Enfant-Jésus', initial: 'T', dates: '1873 – 1897', feast: 'Fête le 1er octobre',
+    vie: 'Thérèse Martin, née à Alençon, entra au carmel de Lisieux à 15 ans et mourut de tuberculose à 24 ans. Elle développa la "petite voie" — un chemin de confiance et d\'abandon spirituel accessible à tous. Son autobiographie, L\'Histoire d\'une âme, la rendit célèbre dans le monde entier. Elle est Docteur de l\'Église.',
+    patronat: 'Patronne des missions, de la France, des aviateurs, des fleuristes.',
+    intercession: 'Thérèse est une intercesseure de la miséricorde et de la confiance. Elle est particulièrement utile pour ceux qui se découragent de leurs chutes et ont du mal à croire en la miséricorde de Dieu.',
+    priere: `Petite Thérèse, tu as dit :
+"Je veux passer mon ciel à faire du bien sur la terre."
 
-</div>
-<script>
-var current = null;
-function open(key) {
-  if (current) {
-    document.getElementById('view-' + current).classList.remove('open');
+Passe donc près de moi
+dans mes moments de faiblesse.
+Rappelle-moi que Dieu aime les petits,
+les imparfaits, les qui-tombent-et-se-relèvent.
+
+Obtiens-moi la grâce
+de ne jamais désespérer,
+de toujours revenir à Dieu
+comme un enfant revient à son père.
+
+Amen.`
+  },
+};
+
+let mySaint = localStorage.getItem('my_saint') || null;
+let myName = localStorage.getItem('my_saint_name') || '';
+let myNotes = localStorage.getItem('my_saint_notes') || '';
+
+function render() {
+  const el = document.getElementById('main-content');
+  if (!mySaint) {
+    el.innerHTML = `
+      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--deep);margin-bottom:8px">Quel est ton saint patron ?</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">Entre son nom pour charger sa biographie et sa prière, ou choisis parmi nos suggestions.</div>
+      <div class="setup-card">
+        <h3>Choisir mon saint patron</h3>
+        <input class="setup-input" id="saint-search" placeholder="Nom du saint (ex: Joseph, Augustin...)">
+        <button class="btn-gold" onclick="searchSaint()">Chercher</button>
+      </div>
+      <div class="section-label">Suggestions</div>
+      ${Object.entries(SAINTS_DB).map(([k,s])=>`
+        <div style="background:white;border:1px solid var(--border);border-radius:var(--radius-sm);padding:13px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;cursor:pointer" onclick="selectSaint('${k}')">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--gold-pale);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--brown);flex-shrink:0">${s.initial}</div>
+          <div><div style="font-size:14px;font-weight:500;color:var(--deep)">${s.name}</div><div style="font-size:12px;color:var(--muted)">${s.feast}</div></div>
+        </div>`).join('')}`;
+    return;
   }
-  current = key;
-  document.getElementById('list-view').style.display = 'none';
-  document.getElementById('view-' + key).classList.add('open');
-  document.getElementById('back-btn').classList.add('show');
-  window.scrollTo(0, 0);
+
+  const s = SAINTS_DB[mySaint];
+  if (!s) { localStorage.removeItem('my_saint'); render(); return; }
+
+  el.innerHTML = `
+    <div class="saint-hero">
+      <div class="saint-initial">${s.initial}</div>
+      <div class="saint-name">${s.name}</div>
+      <div class="saint-dates">${s.dates}</div>
+      <div class="saint-feast">${s.feast}</div>
+    </div>
+    <div class="section-label">Vie et patronat</div>
+    <div class="info-card"><h3>Sa vie</h3><p>${s.vie}</p></div>
+    <div class="info-card"><h3>Patronat</h3><p>${s.patronat}</p></div>
+    <div class="info-card"><h3>Pourquoi l'invoquer ?</h3><p>${s.intercession}</p></div>
+    <div class="section-label">Prière</div>
+    <div class="prayer-card"><h3>Prière à ${s.name.replace('Saint ','').replace('Sainte ','')}</h3><div class="prayer-text">${s.priere}</div></div>
+    <div class="section-label">Mes notes personnelles</div>
+    <textarea style="width:100%;min-height:80px;padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--deep);background:white;resize:none;line-height:1.6;margin-bottom:8px" placeholder="Notes, grâces obtenues, réflexions..." oninput="saveNotes(this.value)">${myNotes}</textarea>
+    <button class="btn-outline" onclick="changeSaint()">Changer de saint patron</button>`;
 }
-function closeAll() {
-  if (current) {
-    document.getElementById('view-' + current).classList.remove('open');
-  }
-  current = null;
-  document.getElementById('list-view').style.display = 'block';
-  document.getElementById('back-btn').classList.remove('show');
-  window.scrollTo(0, 0);
+
+function searchSaint() {
+  const val = document.getElementById('saint-search').value.trim().toLowerCase();
+  const found = Object.keys(SAINTS_DB).find(k => k.includes(val) || SAINTS_DB[k].name.toLowerCase().includes(val));
+  if (found) { selectSaint(found); }
+  else { alert('Saint non trouvé dans la base. Essaie : Joseph, Augustin, Jean-Paul-II, Benoit ou Thérèse.'); }
 }
+
+function selectSaint(key) {
+  mySaint = key;
+  localStorage.setItem('my_saint', key);
+  render();
+}
+
+function changeSaint() {
+  mySaint = null;
+  localStorage.removeItem('my_saint');
+  render();
+}
+
+function saveNotes(val) {
+  myNotes = val;
+  localStorage.setItem('my_saint_notes', val);
+}
+
+render();
 </script>
 </body>
 </html>
