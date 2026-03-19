@@ -70,18 +70,18 @@ const CCC = [
   {ref:'CCC 1023', q:'Qu\'est-ce que le ciel ?', a:'Le ciel est l\'état de bonheur suprême dans lequel ceux qui meurent en état de grâce vivent en communion parfaite avec Dieu, la Vierge Marie, les anges et les saints. C\'est la fin ultime et la réalisation des aspirations profondes de l\'homme.'},
 ];
 
-let revealed = false;
-const today = new Date();
-const dayOfYear = Math.floor((today - new Date(today.getFullYear(),0,0)) / 86400000);
-const idx = dayOfYear % CCC.length;
-const q = CCC[idx];
+let currentIdx = parseInt(localStorage.getItem('ccc_idx') || dayOfYear) % CCC.length;
+const q = CCC[currentIdx];
 const seen = JSON.parse(localStorage.getItem('ccc_seen') || '[]');
 
+let revealed = false;
+
 function render() {
+  const q = CCC[currentIdx];
   const el = document.getElementById('content');
   el.innerHTML = `
     <div class="progress-row">
-      <span>Question ${idx+1} / ${CCC.length}</span>
+      <span>Question ${currentIdx+1} / ${CCC.length}</span>
       <span>${seen.length} vues</span>
     </div>
     <div class="ccc-ref">${q.ref}</div>
@@ -95,15 +95,15 @@ function render() {
 
 function revealAnswer() {
   revealed = true;
-  if (!seen.includes(idx)) { seen.push(idx); localStorage.setItem('ccc_seen', JSON.stringify(seen)); }
+  if (!seen.includes(currentIdx)) { seen.push(currentIdx); localStorage.setItem('ccc_seen', JSON.stringify(seen)); }
   render();
 }
 
 function nextQuestion() {
   revealed = false;
-  const next = (idx + 1) % CCC.length;
-  window.location.hash = next;
-  location.reload();
+  currentIdx = (currentIdx + 1) % CCC.length;
+  localStorage.setItem('ccc_idx', currentIdx);
+  render();
 }
 
 render();
