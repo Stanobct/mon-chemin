@@ -28,10 +28,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--deep);
 .back-btn.show{display:block}
 .litany-header{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--deep);margin-bottom:4px}
 .litany-intro{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px}
-.litany-row{display:flex;align-items:baseline;gap:8px;padding:8px 0;border-bottom:0.5px solid var(--border)}
+.litany-row{display:flex;align-items:center;gap:0;padding:9px 0;border-bottom:0.5px solid var(--border)}
 .litany-invocation{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--deep);flex:1;line-height:1.4}
-.litany-response{font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--gold);font-style:italic;flex-shrink:0}
-.litany-section{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:500;padding:12px 0 6px}
+.litany-response{font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--gold);font-style:italic;flex-shrink:0;margin-left:8px}
+.litany-section{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:500;padding:12px 0 6px;border-bottom:0.5px solid var(--border)}
+.progress-wrap{background:var(--parchment);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.prog-text{font-size:12px;color:var(--muted)}
+.tap-next{width:100%;padding:13px;background:var(--deep);border:none;border-radius:var(--radius-sm);color:white;font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;margin-top:12px;position:sticky;bottom:16px}
+.current-row{background:var(--gold-pale) !important;border-radius:6px;padding:9px 8px !important}
+.current-row .litany-invocation{color:var(--brown);font-weight:500}
 </style>
 </head>
 <body>
@@ -42,152 +47,378 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--deep);
 </div>
 <div class="content">
   <button class="back-btn" id="back-btn" onclick="closeAll()">← Retour</button>
-
   <div id="list-view">
-    <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px">Les litanies sont une forme de prière répétitive où une invocation alterne avec une réponse fixe.</div>
-    <div class="litany-btn" onclick="showLitany('marie')"><span class="litany-icon">🌹</span><div class="litany-btn-text"><h3>Litanies de la Vierge Marie</h3><p>Litanies de Lorette</p></div></div>
-    <div class="litany-btn" onclick="showLitany('sacrecoeur')"><span class="litany-icon">❤️</span><div class="litany-btn-text"><h3>Litanies du Sacré-Coeur</h3><p>Invocations au Coeur de Jésus</p></div></div>
-    <div class="litany-btn" onclick="showLitany('joseph')"><span class="litany-icon">✝️</span><div class="litany-btn-text"><h3>Litanies de Saint Joseph</h3><p>Patron de l'Église universelle</p></div></div>
-    <div class="litany-btn" onclick="showLitany('misericorde')"><span class="litany-icon">🙏</span><div class="litany-btn-text"><h3>Chapelet de la Miséricorde</h3><p>Prière de sainte Faustine</p></div></div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px">Les litanies sont une forme de prière répétitive où une invocation alterne avec une réponse fixe. Elles favorisent la méditation et la supplication.</div>
+    <div class="litany-btn" onclick="openLitany('marie')"><span class="litany-icon">🌹</span><div class="litany-btn-text"><h3>Litanies de la Vierge Marie</h3><p>Litanies de Lorette · 50 invocations</p></div></div>
+    <div class="litany-btn" onclick="openLitany('sacrecoeur')"><span class="litany-icon">❤️</span><div class="litany-btn-text"><h3>Litanies du Sacré-Cœur</h3><p>33 invocations au Cœur de Jésus</p></div></div>
+    <div class="litany-btn" onclick="openLitany('joseph')"><span class="litany-icon">✝️</span><div class="litany-btn-text"><h3>Litanies de Saint Joseph</h3><p>26 invocations · Patron de l\'Église</p></div></div>
+    <div class="litany-btn" onclick="openLitany('saints')"><span class="litany-icon">⭐</span><div class="litany-btn-text"><h3>Litanies des Saints</h3><p>Prière de l'Église pour les défunts et les vivants</p></div></div>
+    <div class="litany-btn" onclick="openLitany('saintnom')"><span class="litany-icon">✦</span><div class="litany-btn-text"><h3>Litanies du Saint Nom de Jésus</h3><p>Invoquer chaque titre du Nom de Jésus</p></div></div>
+    <div class="litany-btn" onclick="openLitany('misericorde')"><span class="litany-icon">🙏</span><div class="litany-btn-text"><h3>Chapelet de la Miséricorde</h3><p>Prière de sainte Faustine · Guide complet</p></div></div>
   </div>
-
-  <div class="litany-view" id="view-marie">
-    <div class="litany-header">Litanies de la Vierge Marie</div>
-    <div class="litany-intro">Après chaque invocation, répondez : <em>Priez pour nous.</em></div>
-    <div class="litany-section">Invocations à Dieu</div>
-    <div class="litany-row"><div class="litany-invocation">Seigneur, ayez pitié de nous</div><div class="litany-response">Seigneur, pitié.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Jésus-Christ, ayez pitié de nous</div><div class="litany-response">Christ, pitié.</div></div>
-    <div class="litany-section">Invocations à Marie</div>
-    <div class="litany-row"><div class="litany-invocation">Sainte Marie</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Sainte Mère de Dieu</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Sainte Vierge des vierges</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Mère du Christ</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Mère de l'Église</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Mère de la divine grâce</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Mère très pure</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Mère très chaste</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Mère sans tache</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Mère aimable</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Mère admirable</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Mère du bon conseil</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Mère du Créateur</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Mère du Sauveur</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Vierge très prudente</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Vierge puissante</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Vierge clémente</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Vierge fidèle</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Miroir de la justice</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Siège de la Sagesse</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Cause de notre joie</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Rose mystique</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Tour de David</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Maison d'or</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Arche d'alliance</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Porte du ciel</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Étoile du matin</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Santé des malades</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Refuge des pécheurs</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Secours des chrétiens</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Reine des anges</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Reine des martyrs</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Reine de tous les saints</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Reine conçue sans péché originel</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Reine élevée au ciel</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Reine du très saint Rosaire</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Reine de la paix</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-section">Conclusion</div>
-    <div class="litany-row"><div class="litany-invocation">Agneau de Dieu qui ôtez les péchés du monde</div><div class="litany-response">Pardonnez-nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Agneau de Dieu qui ôtez les péchés du monde</div><div class="litany-response">Exaucez-nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Agneau de Dieu qui ôtez les péchés du monde</div><div class="litany-response">Ayez pitié de nous.</div></div>
+  <div class="litany-view" id="litany-view">
+    <div class="litany-header" id="litany-title"></div>
+    <div class="litany-intro" id="litany-intro"></div>
+    <div class="progress-wrap"><span class="prog-text" id="prog-text">Invocation 1</span><span class="prog-text" id="prog-pct">0%</span></div>
+    <div id="litany-rows"></div>
+    <button class="tap-next" id="tap-next" onclick="nextLine()">Invocation suivante →</button>
   </div>
-
-  <div class="litany-view" id="view-sacrecoeur">
-    <div class="litany-header">Litanies du Sacré-Coeur</div>
-    <div class="litany-intro">Après chaque invocation, répondez : <em>Ayez pitié de nous.</em></div>
-    <div class="litany-section">Invocations à Dieu</div>
-    <div class="litany-row"><div class="litany-invocation">Seigneur, ayez pitié de nous</div><div class="litany-response">Seigneur, pitié.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Jésus-Christ, ayez pitié de nous</div><div class="litany-response">Christ, pitié.</div></div>
-    <div class="litany-section">Invocations au Sacré-Coeur</div>
-    <div class="litany-row"><div class="litany-invocation">Coeur de Jésus, Fils du Père éternel</div><div class="litany-response">Ayez pitié de nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Coeur de Jésus, formé par l'Esprit Saint dans le sein de la Vierge Mère</div><div class="litany-response">Ayez pitié de nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Coeur de Jésus, de majesté infinie</div><div class="litany-response">Ayez pitié de nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Coeur de Jésus, temple saint de Dieu</div><div class="litany-response">Ayez pitié de nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Coeur de Jésus, tabernacle du Très-Haut</div><div class="litany-response">Ayez pitié de nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Coeur de Jésus, fournaise ardente de la charité</div><div class="litany-response">Ayez pitié de nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Coeur de Jésus, plein de bonté et de dilection</div><div class="litany-response">Ayez pitié de nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Coeur de Jésus, digne de toute louange</div><div class="litany-response">Ayez pitié de nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Coeur de Jésus, roi et centre de tous les coeurs</div><div class="litany-response">Ayez pitié de nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Coeur de Jésus, patient et riche en miséricorde</div><div class="litany-response">Ayez pitié de nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Coeur de Jésus, source de vie et de sainteté</div><div class="litany-response">Ayez pitié de nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Coeur de Jésus, propitiation pour nos péchés</div><div class="litany-response">Ayez pitié de nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Coeur de Jésus, obéissant jusqu'à la mort</div><div class="litany-response">Ayez pitié de nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Coeur de Jésus, percé d'une lance</div><div class="litany-response">Ayez pitié de nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Coeur de Jésus, notre vie et notre résurrection</div><div class="litany-response">Ayez pitié de nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Coeur de Jésus, notre paix et notre réconciliation</div><div class="litany-response">Ayez pitié de nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Coeur de Jésus, délices de tous les saints</div><div class="litany-response">Ayez pitié de nous.</div></div>
-  </div>
-
-  <div class="litany-view" id="view-joseph">
-    <div class="litany-header">Litanies de Saint Joseph</div>
-    <div class="litany-intro">Après chaque invocation, répondez : <em>Priez pour nous.</em></div>
-    <div class="litany-section">Invocations à Dieu</div>
-    <div class="litany-row"><div class="litany-invocation">Seigneur, ayez pitié de nous</div><div class="litany-response">Seigneur, pitié.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Jésus-Christ, ayez pitié de nous</div><div class="litany-response">Christ, pitié.</div></div>
-    <div class="litany-section">Invocations à Saint Joseph</div>
-    <div class="litany-row"><div class="litany-invocation">Saint Joseph</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Noble rejeton de David</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Époux de la Mère de Dieu</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Gardien chaste de la Vierge</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Père nourricier du Fils de Dieu</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Chef de la Sainte Famille</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Joseph très juste</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Joseph très chaste</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Joseph très prudent</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Joseph très fort</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Joseph très obéissant</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Joseph très fidèle</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Miroir de patience</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Ami de la pauvreté</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Modèle des artisans</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Gardien des vierges</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Soutien des familles</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Patron des mourants</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Terreur des démons</div><div class="litany-response">Priez pour nous.</div></div>
-    <div class="litany-row"><div class="litany-invocation">Protecteur de la Sainte Église</div><div class="litany-response">Priez pour nous.</div></div>
-  </div>
-
-  <div class="litany-view" id="view-misericorde">
-    <div class="litany-header">Chapelet de la Miséricorde</div>
-    <div class="litany-intro">Révélé à sainte Faustine Kowalska. Se récite sur les grains du chapelet ordinaire.</div>
-    <div class="litany-section">Introduction (1 fois)</div>
-    <div class="litany-row"><div class="litany-invocation">Notre Père...</div><div class="litany-response">prière complète</div></div>
-    <div class="litany-row"><div class="litany-invocation">Je vous salue Marie...</div><div class="litany-response">prière complète</div></div>
-    <div class="litany-row"><div class="litany-invocation">Je crois en Dieu...</div><div class="litany-response">prière complète</div></div>
-    <div class="litany-section">Sur les gros grains (5 fois)</div>
-    <div class="litany-row"><div class="litany-invocation">Père éternel, je vous offre le Corps, le Sang, l'Âme et la Divinité de votre Fils bien-aimé Notre Seigneur Jésus-Christ</div><div class="litany-response">En expiation de nos péchés et de ceux du monde entier.</div></div>
-    <div class="litany-section">Sur les petits grains (10 fois par dizaine)</div>
-    <div class="litany-row"><div class="litany-invocation">Par sa douloureuse Passion</div><div class="litany-response">Ayez pitié de nous et du monde entier.</div></div>
-    <div class="litany-section">Conclusion (3 fois)</div>
-    <div class="litany-row"><div class="litany-invocation">Dieu saint, Dieu fort, Dieu éternel</div><div class="litany-response">Ayez pitié de nous et du monde entier.</div></div>
-  </div>
-
 </div>
 <script>
-var current = null;
-function showLitany(key) {
-  if (current) document.getElementById('view-' + current).classList.remove('open');
+const LITANIES = {
+  marie: {
+    title: 'Litanies de la Vierge Marie',
+    intro: 'Après chaque invocation, répondez : "Priez pour nous." Prenez le temps de méditer chaque titre de Marie.',
+    response: 'Priez pour nous.',
+    rows: [
+      {s:'Invocations à Dieu'},
+      {i:'Seigneur, ayez pitié de nous', r:'Seigneur, pitié.'},
+      {i:'Jésus-Christ, ayez pitié de nous', r:'Christ, pitié.'},
+      {i:'Seigneur, ayez pitié de nous', r:'Seigneur, pitié.'},
+      {s:'Invocations à Marie'},
+      {i:'Sainte Marie'},
+      {i:'Sainte Mère de Dieu'},
+      {i:'Sainte Vierge des vierges'},
+      {i:'Mère du Christ'},
+      {i:'Mère de l\'Église'},
+      {i:'Mère de la divine grâce'},
+      {i:'Mère très pure'},
+      {i:'Mère très chaste'},
+      {i:'Mère sans tache'},
+      {i:'Mère sans corruption'},
+      {i:'Mère aimable'},
+      {i:'Mère admirable'},
+      {i:'Mère du bon conseil'},
+      {i:'Mère du Créateur'},
+      {i:'Mère du Sauveur'},
+      {i:'Vierge très prudente'},
+      {i:'Vierge digne de vénération'},
+      {i:'Vierge digne de louange'},
+      {i:'Vierge puissante'},
+      {i:'Vierge clémente'},
+      {i:'Vierge fidèle'},
+      {i:'Miroir de la justice'},
+      {i:'Siège de la Sagesse'},
+      {i:'Cause de notre joie'},
+      {i:'Vase spirituel'},
+      {i:'Vase d\'honneur'},
+      {i:'Vase insigne de la dévotion'},
+      {i:'Rose mystique'},
+      {i:'Tour de David'},
+      {i:'Tour d\'ivoire'},
+      {i:'Maison d\'or'},
+      {i:'Arche d\'alliance'},
+      {i:'Porte du ciel'},
+      {i:'Étoile du matin'},
+      {i:'Santé des malades'},
+      {i:'Refuge des pécheurs'},
+      {i:'Mère des affligés'},
+      {i:'Secours des chrétiens'},
+      {i:'Reine des anges'},
+      {i:'Reine des patriarches'},
+      {i:'Reine des prophètes'},
+      {i:'Reine des apôtres'},
+      {i:'Reine des martyrs'},
+      {i:'Reine des confesseurs'},
+      {i:'Reine des vierges'},
+      {i:'Reine de tous les saints'},
+      {i:'Reine conçue sans péché originel'},
+      {i:'Reine élevée au ciel'},
+      {i:'Reine du très saint Rosaire'},
+      {i:'Reine de la famille'},
+      {i:'Reine de la paix'},
+      {s:'Conclusion'},
+      {i:'Agneau de Dieu qui ôtez les péchés du monde', r:'Pardonnez-nous, Seigneur.'},
+      {i:'Agneau de Dieu qui ôtez les péchés du monde', r:'Exaucez-nous, Seigneur.'},
+      {i:'Agneau de Dieu qui ôtez les péchés du monde', r:'Ayez pitié de nous.'},
+    ]
+  },
+  sacrecoeur: {
+    title: 'Litanies du Sacré-Cœur',
+    intro: 'Après chaque invocation, répondez : "Ayez pitié de nous." Ces litanies célèbrent l\'amour infini du Cœur de Jésus.',
+    response: 'Ayez pitié de nous.',
+    rows: [
+      {s:'Invocations à Dieu'},
+      {i:'Seigneur, ayez pitié de nous', r:'Seigneur, pitié.'},
+      {i:'Jésus-Christ, ayez pitié de nous', r:'Christ, pitié.'},
+      {s:'Invocations au Sacré-Cœur'},
+      {i:'Cœur de Jésus, Fils du Père éternel'},
+      {i:'Cœur de Jésus, formé par l\'Esprit Saint dans le sein de la Vierge Mère'},
+      {i:'Cœur de Jésus, uni substantiellement au Verbe de Dieu'},
+      {i:'Cœur de Jésus, de majesté infinie'},
+      {i:'Cœur de Jésus, temple saint de Dieu'},
+      {i:'Cœur de Jésus, tabernacle du Très-Haut'},
+      {i:'Cœur de Jésus, maison de Dieu et porte du ciel'},
+      {i:'Cœur de Jésus, fournaise ardente de la charité'},
+      {i:'Cœur de Jésus, réceptacle de la justice et de l\'amour'},
+      {i:'Cœur de Jésus, plein de bonté et de dilection'},
+      {i:'Cœur de Jésus, abîme de toutes les vertus'},
+      {i:'Cœur de Jésus, digne de toute louange'},
+      {i:'Cœur de Jésus, roi et centre de tous les cœurs'},
+      {i:'Cœur de Jésus, où se trouvent tous les trésors de la sagesse et de la science'},
+      {i:'Cœur de Jésus, où réside toute la plénitude de la divinité'},
+      {i:'Cœur de Jésus, en qui le Père a mis tout son bon plaisir'},
+      {i:'Cœur de Jésus, de la plénitude duquel nous avons tous reçu'},
+      {i:'Cœur de Jésus, désiré des collines éternelles'},
+      {i:'Cœur de Jésus, patient et riche en miséricorde'},
+      {i:'Cœur de Jésus, riche pour tous ceux qui t\'invoquent'},
+      {i:'Cœur de Jésus, source de vie et de sainteté'},
+      {i:'Cœur de Jésus, propitiation pour nos péchés'},
+      {i:'Cœur de Jésus, comblé d\'opprobres'},
+      {i:'Cœur de Jésus, broyé pour nos iniquités'},
+      {i:'Cœur de Jésus, obéissant jusqu\'à la mort'},
+      {i:'Cœur de Jésus, percé d\'une lance'},
+      {i:'Cœur de Jésus, source de toute consolation'},
+      {i:'Cœur de Jésus, notre vie et notre résurrection'},
+      {i:'Cœur de Jésus, notre paix et notre réconciliation'},
+      {i:'Cœur de Jésus, victime des péchés'},
+      {i:'Cœur de Jésus, salut de ceux qui espèrent en Toi'},
+      {i:'Cœur de Jésus, espoir de ceux qui meurent en Toi'},
+      {i:'Cœur de Jésus, délices de tous les saints'},
+    ]
+  },
+  joseph: {
+    title: 'Litanies de Saint Joseph',
+    intro: 'Après chaque invocation : "Priez pour nous." Saint Joseph, gardien de la chasteté et de la famille, est un puissant intercesseur.',
+    response: 'Priez pour nous.',
+    rows: [
+      {s:'Invocations à Dieu'},
+      {i:'Seigneur, ayez pitié de nous', r:'Seigneur, pitié.'},
+      {i:'Jésus-Christ, ayez pitié de nous', r:'Christ, pitié.'},
+      {s:'Invocations à Saint Joseph'},
+      {i:'Saint Joseph'},
+      {i:'Noble rejeton de David'},
+      {i:'Lumière des patriarches'},
+      {i:'Époux de la Mère de Dieu'},
+      {i:'Gardien chaste de la Vierge'},
+      {i:'Père nourricier du Fils de Dieu'},
+      {i:'Vigilant défenseur du Christ'},
+      {i:'Chef de la Sainte Famille'},
+      {i:'Joseph très juste'},
+      {i:'Joseph très chaste'},
+      {i:'Joseph très prudent'},
+      {i:'Joseph très fort'},
+      {i:'Joseph très obéissant'},
+      {i:'Joseph très fidèle'},
+      {i:'Miroir de patience'},
+      {i:'Ami de la pauvreté'},
+      {i:'Modèle des artisans'},
+      {i:'Gloire de la vie domestique'},
+      {i:'Gardien des vierges'},
+      {i:'Soutien des familles'},
+      {i:'Consolation des malheureux'},
+      {i:'Espoir des malades'},
+      {i:'Patron des mourants'},
+      {i:'Terreur des démons'},
+      {i:'Protecteur de la Sainte Église'},
+    ]
+  },
+  saints: {
+    title: 'Litanies des Saints',
+    intro: 'Prière de toute l\'Église. Après chaque invocation : "Priez pour nous." Pour les défunts : "Seigneur, accordez-leur le repos éternel."',
+    response: 'Priez pour nous.',
+    rows: [
+      {s:'Invocations à Dieu'},
+      {i:'Seigneur, ayez pitié', r:'Seigneur, pitié.'},
+      {i:'Jésus-Christ, ayez pitié', r:'Christ, pitié.'},
+      {i:'Seigneur, ayez pitié', r:'Seigneur, pitié.'},
+      {s:'La Sainte Trinité'},
+      {i:'Père céleste, qui êtes Dieu', r:'Ayez pitié de nous.'},
+      {i:'Fils Rédempteur du monde, qui êtes Dieu', r:'Ayez pitié de nous.'},
+      {i:'Esprit Saint, qui êtes Dieu', r:'Ayez pitié de nous.'},
+      {i:'Sainte Trinité, qui êtes un seul Dieu', r:'Ayez pitié de nous.'},
+      {s:'La Vierge Marie et les Anges'},
+      {i:'Sainte Marie, Mère de Dieu'},
+      {i:'Sainte Vierge des vierges'},
+      {i:'Saint Michel'},
+      {i:'Saint Gabriel'},
+      {i:'Saint Raphaël'},
+      {i:'Saints anges de Dieu'},
+      {s:'Les Patriarches et Prophètes'},
+      {i:'Saint Abraham'},
+      {i:'Saint Moïse'},
+      {i:'Saint Jean-Baptiste'},
+      {i:'Saint Joseph'},
+      {s:'Les Apôtres'},
+      {i:'Saint Pierre et saint Paul'},
+      {i:'Saint André'},
+      {i:'Saint Jean'},
+      {i:'Saint Thomas'},
+      {i:'Saint Jacques'},
+      {i:'Saint Philippe et saint Jacques'},
+      {i:'Tous les saints apôtres de Dieu'},
+      {s:'Les Martyrs'},
+      {i:'Saint Étienne'},
+      {i:'Saint Laurent'},
+      {i:'Sainte Perpétue et sainte Félicité'},
+      {i:'Sainte Agnès'},
+      {i:'Saints Innocents'},
+      {i:'Tous les saints martyrs de Dieu'},
+      {s:'Les Pasteurs et Docteurs'},
+      {i:'Saint Grégoire'},
+      {i:'Saint Augustin'},
+      {i:'Saint Athanase'},
+      {i:'Saint Jean Chrysostome'},
+      {i:'Saint Thomas d\'Aquin'},
+      {i:'Tous les saints docteurs de Dieu'},
+      {s:'Les Prêtres et Religieux'},
+      {i:'Saint Benoît'},
+      {i:'Saint François d\'Assise'},
+      {i:'Saint Dominique'},
+      {i:'Saint Ignace de Loyola'},
+      {i:'Saint Jean-Marie Vianney'},
+      {i:'Tous les saints prêtres et religieux'},
+      {s:'Les Laïcs et les Vierges'},
+      {i:'Sainte Marie-Madeleine'},
+      {i:'Sainte Thérèse de l\'Enfant-Jésus'},
+      {i:'Sainte Catherine de Sienne'},
+      {i:'Tous les saints et saintes de Dieu'},
+      {s:'Supplications'},
+      {i:'Soyez-nous propice', r:'Seigneur, délivrez-nous.'},
+      {i:'De tout mal', r:'Seigneur, délivrez-nous.'},
+      {i:'De tout péché', r:'Seigneur, délivrez-nous.'},
+      {i:'De la mort éternelle', r:'Seigneur, délivrez-nous.'},
+      {i:'Par votre Incarnation', r:'Seigneur, délivrez-nous.'},
+      {i:'Par votre mort et résurrection', r:'Seigneur, délivrez-nous.'},
+      {i:'Par l\'envoi du Saint-Esprit', r:'Seigneur, délivrez-nous.'},
+      {s:'Conclusion'},
+      {i:'Agneau de Dieu, qui ôtez les péchés du monde', r:'Pardonnez-nous, Seigneur.'},
+      {i:'Agneau de Dieu, qui ôtez les péchés du monde', r:'Exaucez-nous, Seigneur.'},
+      {i:'Agneau de Dieu, qui ôtez les péchés du monde', r:'Ayez pitié de nous.'},
+    ]
+  },
+  saintnom: {
+    title: 'Litanies du Saint Nom de Jésus',
+    intro: 'Après chaque invocation : "Ayez pitié de nous." Ces litanies méditent chaque titre donné à Jésus dans l\'Écriture et la Tradition.',
+    response: 'Ayez pitié de nous.',
+    rows: [
+      {s:'Invocations à Dieu'},
+      {i:'Seigneur, ayez pitié', r:'Seigneur, pitié.'},
+      {i:'Jésus-Christ, ayez pitié', r:'Christ, pitié.'},
+      {s:'Le Saint Nom'},
+      {i:'Jésus, Fils du Dieu vivant'},
+      {i:'Jésus, splendeur du Père'},
+      {i:'Jésus, clarté de la lumière éternelle'},
+      {i:'Jésus, roi de gloire'},
+      {i:'Jésus, soleil de justice'},
+      {i:'Jésus, Fils de la Vierge Marie'},
+      {i:'Jésus, aimable'},
+      {i:'Jésus, admirable'},
+      {i:'Jésus, Dieu fort'},
+      {i:'Jésus, père du siècle à venir'},
+      {i:'Jésus, prince de la paix'},
+      {i:'Jésus, tout-puissant'},
+      {i:'Jésus, très patient'},
+      {i:'Jésus, très obéissant'},
+      {i:'Jésus, doux et humble de cœur'},
+      {i:'Jésus, ami de la chasteté'},
+      {i:'Jésus, qui nous aimez'},
+      {i:'Jésus, Dieu de paix'},
+      {i:'Jésus, auteur de la vie'},
+      {i:'Jésus, modèle de toutes les vertus'},
+      {i:'Jésus, zélateur des âmes'},
+      {s:'La mission du Christ'},
+      {i:'Jésus, notre Dieu'},
+      {i:'Jésus, notre refuge'},
+      {i:'Jésus, père des pauvres'},
+      {i:'Jésus, trésor des fidèles'},
+      {i:'Jésus, bon pasteur'},
+      {i:'Jésus, vraie lumière'},
+      {i:'Jésus, sagesse éternelle'},
+      {i:'Jésus, bonté infinie'},
+      {i:'Jésus, notre voie et notre vie'},
+      {i:'Jésus, joie des anges'},
+      {i:'Jésus, roi des patriarches'},
+      {i:'Jésus, maître des apôtres'},
+      {i:'Jésus, docteur des évangélistes'},
+      {i:'Jésus, force des martyrs'},
+      {i:'Jésus, lumière des confesseurs'},
+      {i:'Jésus, pureté des vierges'},
+      {i:'Jésus, couronne de tous les saints'},
+      {s:'Conclusion'},
+      {i:'Soyez-nous propice', r:'Jésus, exaucez-nous.'},
+      {i:'De tout mal', r:'Jésus, délivrez-nous.'},
+      {i:'De tout péché', r:'Jésus, délivrez-nous.'},
+      {i:'Agneau de Dieu, qui ôtez les péchés du monde', r:'Pardonnez-nous, Jésus.'},
+      {i:'Agneau de Dieu, qui ôtez les péchés du monde', r:'Exaucez-nous, Jésus.'},
+      {i:'Agneau de Dieu, qui ôtez les péchés du monde', r:'Ayez pitié de nous.'},
+    ]
+  },
+    title: 'Chapelet de la Miséricorde',
+    intro: 'Révélé à sainte Faustine Kowalska. Se récite sur les grains du chapelet ordinaire. Réponse : "Pour les pécheurs du monde entier."',
+    response: 'Pour les pécheurs du monde entier.',
+    rows: [
+      {s:'Introduction (1 fois)'},
+      {i:'Notre Père…', r:'(prière complète)'},
+      {i:'Je vous salue Marie…', r:'(prière complète)'},
+      {i:'Je crois en Dieu…', r:'(prière complète)'},
+      {s:'Sur les gros grains (5 fois)'},
+      {i:'Père éternel, j\'offre le Corps, le Sang, l\'Âme et la Divinité de votre Fils bien-aimé Notre Seigneur Jésus-Christ', r:'En expiation de nos péchés et de ceux du monde entier.'},
+      {s:'Sur les petits grains (10 fois, 5 dizaines)'},
+      {i:'Par sa douloureuse Passion', r:'Ayez pitié de nous et du monde entier.'},
+      {s:'Conclusion (3 fois)'},
+      {i:'Dieu saint, Dieu fort, Dieu éternel', r:'Ayez pitié de nous et du monde entier.'},
+    ]
+  }
+};
+
+let current = null;
+let currentLine = 0;
+
+function openLitany(key) {
   current = key;
+  currentLine = 0;
   document.getElementById('list-view').style.display = 'none';
-  document.getElementById('view-' + key).classList.add('open');
+  document.getElementById('litany-view').classList.add('open');
   document.getElementById('back-btn').classList.add('show');
-  window.scrollTo(0, 0);
+  const l = LITANIES[key];
+  document.getElementById('litany-title').textContent = l.title;
+  document.getElementById('litany-intro').textContent = l.intro;
+  renderLitany();
 }
+
 function closeAll() {
-  if (current) document.getElementById('view-' + current).classList.remove('open');
   current = null;
+  document.getElementById('litany-view').classList.remove('open');
   document.getElementById('list-view').style.display = 'block';
   document.getElementById('back-btn').classList.remove('show');
-  window.scrollTo(0, 0);
+  window.scrollTo(0,0);
+}
+
+function renderLitany() {
+  const l = LITANIES[current];
+  const rows = l.rows;
+  const invocations = rows.filter(r=>r.i).length;
+  const done = rows.slice(0, currentLine+1).filter(r=>r.i).length;
+  document.getElementById('prog-text').textContent = `Invocation ${done} / ${invocations}`;
+  document.getElementById('prog-pct').textContent = Math.round(done/invocations*100)+'%';
+
+  const el = document.getElementById('litany-rows');
+  el.innerHTML = rows.map((row, idx) => {
+    if (row.s) return `<div class="litany-section">${row.s}</div>`;
+    const isCurrent = idx === currentLine;
+    const resp = row.r || l.response;
+    return `<div class="litany-row${isCurrent?' current-row':''}" id="row-${idx}">
+      <div class="litany-invocation">${row.i}</div>
+      ${isCurrent ? `<div class="litany-response">${resp}</div>` : ''}
+    </div>`;
+  }).join('');
+
+  if (currentLine < rows.length) {
+    const el2 = document.getElementById('row-'+currentLine);
+    if (el2) setTimeout(()=>el2.scrollIntoView({behavior:'smooth',block:'center'}),100);
+  }
+
+  const allDone = done >= invocations;
+  document.getElementById('tap-next').textContent = allDone ? 'Litanies terminées — Recommencer' : 'Invocation suivante →';
+}
+
+function nextLine() {
+  const l = LITANIES[current];
+  currentLine++;
+  while (currentLine < l.rows.length && l.rows[currentLine].s) currentLine++;
+  if (currentLine >= l.rows.length) { currentLine = 0; }
+  renderLitany();
 }
 </script>
 </body>
