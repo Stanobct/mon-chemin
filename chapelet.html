@@ -642,7 +642,7 @@ function prayRosarioDizaine(mIdx, dizaineIdx) {
   showPage('chapelet');
   // Update mystere tabs
   document.querySelectorAll('.mystery-tab').forEach((t,i) => t.classList.toggle('active', i === mIdx));
-  window.mystereIdx = mIdx;
+  mystereIdx = mIdx;
   // Build a quick dizaine sequence and start it
   sequence = buildQuickSequence(dizaineIdx);
   stepIdx = 0;
