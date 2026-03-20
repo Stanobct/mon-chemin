@@ -9,36 +9,36 @@
 <title>Préparation à la confession</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--cream:#FAF7F2;--parchment:#F0EAE0;--gold:#B8944A;--gold-light:#D4B06A;--gold-pale:#F5EDD8;--deep:#2A1F14;--brown:#6B4F35;--muted:#9A8470;--danger:#8B3A3A;--danger-pale:#F5EAEA;--success:#4A7C59;--success-pale:#EAF3EE;--border:rgba(184,148,74,0.2);--radius:16px;--radius-sm:10px}
+:root{--cream:#0F0C09;--parchment:#1A1410;--gold:#C9A55A;--gold-light:#E0BC7A;--gold-pale:#1E180F;--deep:#F2EDE6;--brown:#B09070;--muted:#7A6A58;--danger:#8B3A3A;--danger-pale:#1F1010;--success:#4A7C59;--success-pale:#101A12;--border:rgba(201,165,90,0.2);--radius:16px;--radius-sm:10px;--bg-main:#0F0C09;--bg-card:#181310;--bg-main:#0F0C09;--bg-card:#181310}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--deep);min-height:100vh;padding-bottom:calc(30px + env(safe-area-inset-bottom,0px))}
-.app-header{background:var(--cream);padding:52px 20px 16px;text-align:center;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;position:relative}
-.app-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--deep)}
+body{font-family:'DM Sans',sans-serif;background:#0F0C09;color:#F2EDE6;min-height:100vh;padding-bottom:calc(30px + env(safe-area-inset-bottom,0px))}
+.app-header{background:#080604;padding:52px 20px 16px;text-align:center;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;position:relative}
+.app-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#F2EDE6}
 .app-subtitle{font-size:12px;color:var(--muted);margin-top:2px;letter-spacing:0.04em;text-transform:uppercase}
 .back-link{font-size:13px;color:var(--gold);text-decoration:none;position:absolute;left:20px;top:56px;opacity:0.85}
 .content{max-width:430px;margin:0 auto;padding:16px}
-.page-tabs{display:flex;background:var(--parchment);border-radius:var(--radius-sm);padding:3px;margin-bottom:16px;gap:2px}
+.page-tabs{display:flex;background:#1A1410;border-radius:var(--radius-sm);padding:3px;margin-bottom:16px;gap:2px}
 .page-tab{flex:1;padding:9px;text-align:center;font-size:12px;color:var(--muted);cursor:pointer;border-radius:8px;transition:all 0.2s;line-height:1.3}
-.page-tab.active{background:white;color:var(--deep);font-weight:500;box-shadow:0 1px 4px rgba(0,0,0,0.08)}
-.tracker-card{background:var(--deep);border-radius:var(--radius);padding:18px 20px;margin-bottom:14px;display:flex;align-items:center;gap:16px}
+.page-tab.active{background:#181310;color:#F2EDE6;font-weight:500;box-shadow:0 1px 4px rgba(0,0,0,0.4)}
+.tracker-card{background:#181310;border-radius:var(--radius);padding:18px 20px;margin-bottom:14px;display:flex;align-items:center;gap:16px}
 .tracker-days{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:600;color:var(--gold-light);line-height:1;flex-shrink:0}
 .tracker-info h3{font-size:12px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px}
 .tracker-info p{font-size:12px;color:rgba(255,255,255,0.35);line-height:1.5}
 .tracker-btn{width:100%;padding:11px;background:var(--gold);border:none;border-radius:var(--radius-sm);color:white;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;margin-bottom:8px}
 .section-label{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:8px;font-weight:500;margin-top:16px}
-.exam-card{background:white;border:1px solid var(--border);border-radius:var(--radius-sm);padding:13px 14px;margin-bottom:7px}
-.exam-q{font-size:14px;color:var(--deep);line-height:1.5;margin-bottom:8px}
+.exam-card{background:#181310;border:1px solid var(--border);border-radius:var(--radius-sm);padding:13px 14px;margin-bottom:7px}
+.exam-q{font-size:14px;color:#F2EDE6;line-height:1.5;margin-bottom:8px}
 .count-row{display:flex;align-items:center;gap:8px}
-.count-btn{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:var(--parchment);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'DM Sans',sans-serif}
-.count-num{font-size:15px;font-weight:500;color:var(--deep);min-width:24px;text-align:center}
+.count-btn{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:#1A1410;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'DM Sans',sans-serif}
+.count-num{font-size:15px;font-weight:500;color:#F2EDE6;min-width:24px;text-align:center}
 .count-label{font-size:12px;color:var(--muted);flex:1}
-.prayer-card{background:var(--gold-pale);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:10px}
-.prayer-card h3{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--deep);margin-bottom:10px;text-align:center}
-.prayer-text{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--deep);line-height:1.9;font-style:italic;white-space:pre-line;text-align:center}
-.steps-card{background:white;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:8px}
+.prayer-card{background:#1E180F;border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:10px}
+.prayer-card h3{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:#F2EDE6;margin-bottom:10px;text-align:center}
+.prayer-text{font-family:'Cormorant Garamond',serif;font-size:17px;color:#F2EDE6;line-height:1.9;font-style:italic;white-space:pre-line;text-align:center}
+.steps-card{background:#181310;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:8px}
 .step-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
-.step-num{width:24px;height:24px;border-radius:50%;background:var(--parchment);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--muted);flex-shrink:0;margin-top:1px}
-.step-text{font-size:13px;color:var(--deep);line-height:1.6;flex:1}
+.step-num{width:24px;height:24px;border-radius:50%;background:#1A1410;border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--muted);flex-shrink:0;margin-top:1px}
+.step-text{font-size:13px;color:#F2EDE6;line-height:1.6;flex:1}
 .btn-outline{width:100%;padding:11px;background:transparent;border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--brown);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;margin-top:6px}
 </style>
 </head>
@@ -65,7 +65,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--deep);
     <button class="tracker-btn" onclick="recordConfession()">Je viens de me confesser ✓</button>
     <button class="btn-outline" onclick="resetConfession()">Réinitialiser</button>
     <div class="section-label">Rappel</div>
-    <div style="background:white;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;font-size:13px;color:var(--brown);line-height:1.6">
+    <div style="background:#181310;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;font-size:13px;color:var(--brown);line-height:1.6">
       L'Église recommande de se confesser au moins une fois par an (précepte pascal), mais la pratique recommandée est mensuelle — et plus fréquente pour qui mène un combat spirituel intense.
     </div>
   </div>
@@ -139,7 +139,7 @@ Amen.</div>
       <div class="step-row"><div class="step-num">8</div><div class="step-text"><strong>Absolution</strong> — Le prêtre prononce les paroles d'absolution. Réponds : "Amen."</div></div>
       <div class="step-row" style="margin-bottom:0"><div class="step-num">9</div><div class="step-text"><strong>Après</strong> — Rends grâce à Dieu. Accomplis ta pénitence dès que possible.</div></div>
     </div>
-    <div style="background:var(--gold-pale);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;font-size:13px;color:var(--brown);line-height:1.6;margin-top:4px">
+    <div style="background:#1E180F;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;font-size:13px;color:var(--brown);line-height:1.6;margin-top:4px">
       Le secret de la confession est absolu. Le prêtre ne peut jamais révéler ce qu'il a entendu en confession, sous aucune circonstance.
     </div>
   </div>

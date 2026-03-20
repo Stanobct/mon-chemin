@@ -10,28 +10,36 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --cream: #FAF7F2;
-  --parchment: #F0EAE0;
-  --gold: #B8944A;
-  --gold-light: #D4B06A;
-  --gold-pale: #F5EDD8;
-  --deep: #2A1F14;
-  --brown: #6B4F35;
-  --muted: #9A8470;
-  --border: rgba(184,148,74,0.2);
+  --cream: #0F0C09;
+  --parchment: #1A1410;
+  --gold: #C9A55A;
+  --gold-light: #E0BC7A;
+  --gold-pale: #1E180F;
+  --deep: #F2EDE6;
+  --brown: #B09070;
+  --muted: #7A6A58;
+  --border: rgba(201,165,90,0.2);
   --radius: 16px;
   --radius-sm: 10px;
+
+  --bg-main: #0F0C09;
+  --bg-card: #181310;
+  --bg-card-elevated: #201A14;
+  --text-primary: #F2EDE6;
+  --text-secondary: #9A8470;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 body {
   font-family: 'DM Sans', sans-serif;
-  background: var(--cream);
-  color: var(--deep);
+  background: var(--bg-main);
+  color: var(--text-primary);
   min-height: 100vh;
   padding-bottom: calc(32px + env(safe-area-inset-bottom, 0px));
 }
+
 .app-header {
-  background: var(--deep);
+  background: #080604;
+  border-bottom: 1px solid rgba(201,165,90,0.12);
   padding: calc(52px + env(safe-area-inset-top, 0px)) 20px 24px;
   text-align: center;
 }
@@ -60,9 +68,11 @@ body {
   color: var(--gold-light);
   letter-spacing: 0.04em;
 }
+
 .freedom-card {
   margin: 20px 16px 4px;
-  background: var(--deep);
+  background: #181310;
+  border: 1px solid rgba(201,165,90,0.18);
   border-radius: var(--radius);
   padding: 20px;
   color: white;
@@ -125,6 +135,7 @@ body {
   color: rgba(255,255,255,0.45);
   letter-spacing: 0.03em;
 }
+
 .section-title {
   font-family: 'Cormorant Garamond', serif;
   font-size: 11px;
@@ -134,26 +145,29 @@ body {
   color: var(--muted);
   padding: 20px 20px 8px;
 }
+
 .cards-list {
   padding: 0 16px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
 .app-card {
   display: flex;
   align-items: center;
   gap: 14px;
-  background: white;
+  background: #181310;
   border-radius: var(--radius);
   padding: 14px 16px;
   text-decoration: none;
-  color: var(--deep);
-  border: 1px solid var(--border);
-  box-shadow: 0 1px 4px rgba(42,31,20,0.05);
+  color: var(--text-primary);
+  border: 1px solid rgba(201,165,90,0.14);
+  box-shadow: 0 1px 8px rgba(0,0,0,0.3);
   transition: transform 0.15s, box-shadow 0.15s;
 }
 .app-card:active { transform: scale(0.98); box-shadow: none; }
+
 .app-card-icon {
   width: 42px; height: 42px;
   border-radius: 12px;
@@ -161,15 +175,16 @@ body {
   font-size: 20px;
   flex-shrink: 0;
 }
-.icon-gold { background: var(--gold-pale); }
-.icon-cream { background: var(--parchment); }
-.icon-dark { background: var(--deep); }
+.icon-gold { background: #221C0E; }
+.icon-cream { background: #1A1510; }
+.icon-dark { background: #0A0806; }
+
 .app-card-text { flex: 1; }
 .app-card-text h3 {
   font-family: 'Cormorant Garamond', serif;
   font-size: 17px;
   font-weight: 600;
-  color: var(--deep);
+  color: var(--text-primary);
   margin-bottom: 2px;
 }
 .app-card-text p {
@@ -177,6 +192,7 @@ body {
   color: var(--muted);
   letter-spacing: 0.02em;
 }
+
 .arrow {
   font-size: 22px;
   color: var(--gold);
@@ -190,7 +206,7 @@ body {
 <div class="app-header">
   <div class="app-title">✝ Virtus</div>
   <div class="app-subtitle">Compagnon spirituel</div>
-  <div class="date-badge" id="date-today">Chargement…</div>
+  <div class="date-badge" id="date-today"></div>
 </div>
 
 <a class="freedom-card" href="ma-liberte.html">
@@ -264,51 +280,38 @@ body {
 </div>
 
 <script>
-window.addEventListener('DOMContentLoaded', function() {
+const JOURS = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+const MOIS = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+const now = new Date();
+document.getElementById('date-today').textContent =
+  JOURS[now.getDay()] + ' ' + now.getDate() + ' ' + MOIS[now.getMonth()] + ' ' + now.getFullYear();
 
-  // --- DATE ---
-  const JOURS = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
-  const MOIS = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
-  const now = new Date();
-  const dateEl = document.getElementById('date-today');
-  if (dateEl) {
-    dateEl.textContent = JOURS[now.getDay()] + ' ' + now.getDate() + ' ' + MOIS[now.getMonth()] + ' ' + now.getFullYear();
-  }
+const MILESTONES = [
+  {days:1,label:"1 jour",name:"Premier pas"},
+  {days:3,label:"3 jours",name:"Colombe"},
+  {days:7,label:"1 semaine",name:"Étoile"},
+  {days:14,label:"2 semaines",name:"Olivier"},
+  {days:30,label:"1 mois",name:"Pleine lune"},
+  {days:90,label:"3 mois",name:"Feu de l'Esprit"},
+  {days:180,label:"6 mois",name:"Bouclier de foi"},
+  {days:365,label:"1 an",name:"Couronne"}
+];
 
-  // --- LIBERTÉ ---
-  const MILESTONES = [
-    {days:1,  label:"1 jour",    name:"Premier pas"},
-    {days:3,  label:"3 jours",   name:"Colombe"},
-    {days:7,  label:"1 semaine", name:"Étoile"},
-    {days:14, label:"2 semaines",name:"Olivier"},
-    {days:30, label:"1 mois",    name:"Pleine lune"},
-    {days:90, label:"3 mois",    name:"Feu de l'Esprit"},
-    {days:180,label:"6 mois",    name:"Bouclier de foi"},
-    {days:365,label:"1 an",      name:"Couronne"}
-  ];
+const startRaw = localStorage.getItem('ml_start');
+const startDate = startRaw ? new Date(startRaw) : null;
+const days = startDate ? Math.max(0, Math.floor((new Date() - startDate) / 86400000)) : 0;
 
-  const startRaw = localStorage.getItem('ml_start');
-  const startDate = startRaw ? new Date(startRaw) : null;
-  const days = startDate ? Math.max(0, Math.floor((Date.now() - startDate.getTime()) / 86400000)) : 0;
+document.getElementById('idx-days').textContent = days;
+document.getElementById('idx-unit').textContent = days <= 1 ? 'JOUR DE LIBERTÉ' : 'JOURS DE LIBERTÉ';
 
-  const daysEl = document.getElementById('idx-days');
-  const unitEl = document.getElementById('idx-unit');
-  const barEl  = document.getElementById('idx-bar');
-  const mileEl = document.getElementById('idx-milestone');
-
-  if (daysEl) daysEl.textContent = days;
-  if (unitEl) unitEl.textContent = days <= 1 ? 'JOUR DE LIBERTÉ' : 'JOURS DE LIBERTÉ';
-
-  const next = MILESTONES.find(m => m.days > days);
-  const pct  = next ? Math.min(100, Math.round((days / next.days) * 100)) : 100;
-  if (barEl)  barEl.style.width = pct + '%';
-  if (mileEl) mileEl.textContent = !startDate
-    ? 'Toucher pour commencer le combat'
-    : next
-      ? 'Prochain cap : ' + next.label + ' — ' + next.name
-      : 'Tous les caps atteints · Ad majorem Dei gloriam';
-
-});
+const next = MILESTONES.find(m => m.days > days);
+const pct = next ? Math.min(100, Math.round((days / next.days) * 100)) : 100;
+document.getElementById('idx-bar').style.width = pct + '%';
+document.getElementById('idx-milestone').textContent = !startDate
+  ? 'Toucher pour commencer le combat'
+  : next
+    ? \`Prochain cap : \${next.label} — \${next.name}\`
+    : 'Tous les caps atteints · Ad majorem Dei gloriam';
 </script>
 
 </body>

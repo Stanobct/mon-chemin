@@ -13,21 +13,21 @@
 <title>Chapelet guidé</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--cream:#FAF7F2;--parchment:#F0EAE0;--gold:#B8944A;--gold-light:#D4B06A;--gold-pale:#F5EDD8;--deep:#2A1F14;--brown:#6B4F35;--muted:#9A8470;--border:rgba(184,148,74,0.2);--radius:16px;--radius-sm:10px}
+:root{--cream:#0F0C09;--parchment:#1A1410;--gold:#C9A55A;--gold-light:#E0BC7A;--gold-pale:#1E180F;--deep:#F2EDE6;--brown:#B09070;--muted:#7A6A58;--border:rgba(201,165,90,0.2);--radius:16px;--radius-sm:10px;--bg-main:#0F0C09;--bg-card:#181310;--bg-main:#0F0C09;--bg-card:#181310}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--deep);min-height:100vh;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))}
-.app-header{background:var(--cream);padding:52px 20px 16px;text-align:center;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10}
-.app-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--deep)}
+body{font-family:'DM Sans',sans-serif;background:#0F0C09;color:#F2EDE6;min-height:100vh;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))}
+.app-header{background:#080604;padding:52px 20px 16px;text-align:center;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10}
+.app-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#F2EDE6}
 .app-subtitle{font-size:12px;color:var(--muted);margin-top:2px;letter-spacing:0.04em;text-transform:uppercase}
 .content{max-width:430px;margin:0 auto;padding:20px 16px}
 
 /* Mystery selector */
-.mystery-tabs{display:flex;background:var(--parchment);border-radius:var(--radius-sm);padding:3px;margin-bottom:20px;gap:2px}
+.mystery-tabs{display:flex;background:#1A1410;border-radius:var(--radius-sm);padding:3px;margin-bottom:20px;gap:2px}
 .mystery-tab{flex:1;padding:8px 4px;text-align:center;font-size:11px;color:var(--muted);cursor:pointer;border-radius:8px;transition:all 0.2s;line-height:1.3}
-.mystery-tab.active{background:white;color:var(--deep);font-weight:500;box-shadow:0 1px 4px rgba(0,0,0,0.08)}
+.mystery-tab.active{background:#181310;color:#F2EDE6;font-weight:500;box-shadow:0 1px 4px rgba(0,0,0,0.4)}
 
 /* Main bead display */
-.bead-card{background:var(--deep);border-radius:var(--radius);padding:28px 24px;text-align:center;margin-bottom:16px;position:relative;overflow:hidden}
+.bead-card{background:#181310;border-radius:var(--radius);padding:28px 24px;text-align:center;margin-bottom:16px;position:relative;overflow:hidden}
 .bead-card::before{content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;border-radius:50%;border:1px solid rgba(184,148,74,0.1)}
 .mystery-name{font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px}
 .mystery-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--gold-light);margin-bottom:20px;line-height:1.3;position:relative;z-index:1}
@@ -44,21 +44,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--deep);
 .progress-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .progress-text{font-size:12px;color:var(--muted)}
 .decade-dots{display:flex;gap:6px}
-.decade-dot{width:10px;height:10px;border-radius:50%;background:var(--parchment);border:1px solid var(--border);transition:all 0.3s}
+.decade-dot{width:10px;height:10px;border-radius:50%;background:#1A1410;border:1px solid var(--border);transition:all 0.3s}
 .decade-dot.done{background:var(--gold);border-color:var(--gold)}
 .decade-dot.current{border-color:var(--gold);border-width:2px}
 
 /* Prayer text card */
-.prayer-text-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;border-left:3px solid var(--gold)}
-.prayer-text-card h3{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--deep);margin-bottom:10px}
-.prayer-text-card p{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--deep);line-height:1.8;font-style:italic;white-space:pre-line}
-.fruit-tag{display:inline-block;background:var(--gold-pale);border:1px solid var(--border);border-radius:999px;padding:5px 14px;font-size:12px;color:var(--brown);margin-top:14px;font-family:'DM Sans',sans-serif}
+.prayer-text-card{background:#181310;border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;border-left:3px solid var(--gold)}
+.prayer-text-card h3{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:#F2EDE6;margin-bottom:10px}
+.prayer-text-card p{font-family:'Cormorant Garamond',serif;font-size:16px;color:#F2EDE6;line-height:1.8;font-style:italic;white-space:pre-line}
+.fruit-tag{display:inline-block;background:#1E180F;border:1px solid var(--border);border-radius:999px;padding:5px 14px;font-size:12px;color:var(--brown);margin-top:14px;font-family:'DM Sans',sans-serif}
 .fruit-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-top:16px;margin-bottom:4px;font-family:'DM Sans',sans-serif}
 
 /* Buttons */
 .btn-row{display:flex;gap:8px;margin-bottom:12px}
 .btn-sm{flex:1;padding:11px;background:transparent;border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--brown);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:background 0.2s}
-.btn-sm:hover{background:var(--parchment)}
+.btn-sm:hover{background:#1A1410}
 .btn-gold{width:100%;padding:13px;background:var(--gold);border:none;border-radius:var(--radius-sm);color:white;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer}
 
 /* Intention screen */
@@ -69,9 +69,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--deep);
 .intentions-screen{display:none}
 .intentions-screen.visible{display:block}
 
-.intention-intro{background:var(--deep);border-radius:var(--radius);padding:20px;text-align:center;margin-bottom:16px}
+.intention-intro{background:#181310;border-radius:var(--radius);padding:20px;text-align:center;margin-bottom:16px}
 .intention-intro p{font-family:'Cormorant Garamond',serif;font-size:17px;color:rgba(255,255,255,0.7);line-height:1.7;font-style:italic}
-.intention-input{width:100%;min-height:90px;padding:14px;border:1px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:15px;color:var(--deep);background:white;resize:none;line-height:1.6;margin-bottom:12px}
+.intention-input{width:100%;min-height:90px;padding:14px;border:1px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:15px;color:#F2EDE6;background:#181310;resize:none;line-height:1.6;margin-bottom:12px}
 .intention-input::placeholder{color:var(--muted)}
 .intention-input:focus{outline:none;border-color:var(--gold)}
 .btn-gold-full{width:100%;padding:13px;background:var(--gold);border:none;border-radius:var(--radius-sm);color:white;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;margin-bottom:8px}
@@ -80,35 +80,35 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--deep);
 /* Quick decade selector */
 .quick-screen{display:none}
 .quick-screen.visible{display:block}
-.mode-toggle{display:flex;background:var(--parchment);border-radius:var(--radius-sm);padding:3px;margin-bottom:16px;gap:2px}
+.mode-toggle{display:flex;background:#1A1410;border-radius:var(--radius-sm);padding:3px;margin-bottom:16px;gap:2px}
 .mode-btn{flex:1;padding:9px 6px;text-align:center;font-size:12px;color:var(--muted);cursor:pointer;border-radius:8px;transition:all 0.2s;line-height:1.4}
-.mode-btn.active{background:white;color:var(--deep);font-weight:500;box-shadow:0 1px 4px rgba(0,0,0,0.08)}
+.mode-btn.active{background:#181310;color:#F2EDE6;font-weight:500;box-shadow:0 1px 4px rgba(0,0,0,0.4)}
 .select-label{font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);margin-bottom:8px;font-weight:500;margin-top:14px}
 .mystery-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
-.mystery-option{background:white;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;cursor:pointer;transition:all 0.15s}
-.mystery-option.selected{background:var(--gold-pale);border-color:var(--gold)}
-.mystery-option-name{font-size:13px;font-weight:500;color:var(--deep)}
+.mystery-option{background:#181310;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;cursor:pointer;transition:all 0.15s}
+.mystery-option.selected{background:#1E180F;border-color:var(--gold)}
+.mystery-option-name{font-size:13px;font-weight:500;color:#F2EDE6}
 .mystery-option-day{font-size:11px;color:var(--muted);margin-top:2px}
 .dizaine-grid{display:grid;grid-template-columns:1fr;gap:6px;margin-bottom:16px}
-.dizaine-option{background:white;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:11px 14px;text-align:left;cursor:pointer;transition:all 0.15s;font-size:13px;font-weight:400;color:var(--deep)}
-.dizaine-option.selected{background:var(--gold-pale);border-color:var(--gold);color:var(--brown);font-weight:500}
-.page-tabs{display:flex;background:var(--parchment);border-radius:var(--radius-sm);padding:3px;margin-bottom:20px;gap:2px}
+.dizaine-option{background:#181310;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:11px 14px;text-align:left;cursor:pointer;transition:all 0.15s;font-size:13px;font-weight:400;color:#F2EDE6}
+.dizaine-option.selected{background:#1E180F;border-color:var(--gold);color:var(--brown);font-weight:500}
+.page-tabs{display:flex;background:#1A1410;border-radius:var(--radius-sm);padding:3px;margin-bottom:20px;gap:2px}
 .page-tab{flex:1;padding:9px;text-align:center;font-size:13px;color:var(--muted);cursor:pointer;border-radius:8px;transition:all 0.2s}
-.page-tab.active{background:white;color:var(--deep);font-weight:500;box-shadow:0 1px 4px rgba(0,0,0,0.08)}
+.page-tab.active{background:#181310;color:#F2EDE6;font-weight:500;box-shadow:0 1px 4px rgba(0,0,0,0.4)}
 
 /* Intention cards */
-.intention-card{background:white;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:8px}
+.intention-card{background:#181310;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:8px}
 .intention-card-date{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
-.intention-card-text{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--deep);line-height:1.6;font-style:italic;margin-bottom:10px}
+.intention-card-text{font-family:'Cormorant Garamond',serif;font-size:16px;color:#F2EDE6;line-height:1.6;font-style:italic;margin-bottom:10px}
 .intention-card-mystery{font-size:11px;color:var(--gold);margin-bottom:10px}
-.btn-reprier{padding:7px 14px;background:var(--gold-pale);border:1px solid var(--border);border-radius:999px;color:var(--brown);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;transition:background 0.15s}
-.btn-reprier:hover{background:var(--parchment)}
+.btn-reprier{padding:7px 14px;background:#1E180F;border:1px solid var(--border);border-radius:999px;color:var(--brown);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;transition:background 0.15s}
+.btn-reprier:hover{background:#1A1410}
 .btn-delete{padding:7px 10px;background:transparent;border:none;color:var(--muted);font-size:12px;cursor:pointer;opacity:0.6}
 .btn-delete:hover{opacity:1}
 .empty-intentions{text-align:center;padding:32px 20px;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--muted);font-style:italic}
-.fin-card{background:var(--gold-pale);border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;display:none}
+.fin-card{background:#1E180F;border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;display:none}
 .fin-card.show{display:block}
-.fin-card h2{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--deep);margin-bottom:10px}
+.fin-card h2{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#F2EDE6;margin-bottom:10px}
 .fin-card p{font-size:14px;color:var(--brown);line-height:1.7;margin-bottom:16px}
   .back-link{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--gold);text-decoration:none;position:absolute;left:20px;top:56px;opacity:0.85}
   .back-link:hover{opacity:1}
@@ -133,7 +133,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--deep);
       <div class="intention-intro">
         <p>« Demandez et vous recevrez. »<br>— Jean 16, 24</p>
       </div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--deep);margin-bottom:8px">Pour qui pries-tu ce chapelet ?</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:#F2EDE6;margin-bottom:8px">Pour qui pries-tu ce chapelet ?</div>
       <div style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">Confie ton intention à Marie avant de commencer.</div>
       <textarea class="intention-input" id="intention-input" placeholder="Ex : pour la guérison de mon père, pour ma fiancée…"></textarea>
       <button class="btn-gold-full" onclick="saveIntentionAndStart()">Commencer le chapelet →</button>
@@ -162,7 +162,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--deep);
   <div id="catalogue-screen" style="display:none">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
       <button onclick="hideCatalogue()" style="background:none;border:none;color:var(--gold);font-size:14px;cursor:pointer;padding:0">← Retour</button>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--deep)">Intentions passées</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:#F2EDE6">Intentions passées</div>
     </div>
     <div id="catalogue-list"></div>
   </div>
