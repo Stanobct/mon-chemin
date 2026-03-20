@@ -106,6 +106,26 @@ body{font-family:'DM Sans',sans-serif;background:#0F0C09;color:#F2EDE6;min-heigh
 .btn-delete{padding:7px 10px;background:transparent;border:none;color:var(--muted);font-size:12px;cursor:pointer;opacity:0.6}
 .btn-delete:hover{opacity:1}
 .empty-intentions{text-align:center;padding:32px 20px;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--muted);font-style:italic}
+/* Rosario section */
+.rosario-day-banner{background:#1A1410;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 16px;font-size:12px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+.rosario-day-banner span{color:#F2EDE6;font-weight:500}
+.rosario-card{background:#181310;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:14px}
+.rosario-card-header{padding:13px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.rosario-group-name{font-size:14px;font-weight:500;color:#F2EDE6}
+.rosario-group-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.rosario-dizaine-num{width:34px;height:34px;border-radius:50%;background:#1E180F;border:1px solid rgba(201,165,90,0.35);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:#C9A55A;flex-shrink:0}
+.rosario-mystery-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;color:#C9A55A;flex:1;margin:0 12px}
+.rosario-body{padding:12px 16px}
+.rosario-intention-label{font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);margin-bottom:5px}
+.rosario-intention-text{font-family:'Cormorant Garamond',serif;font-size:15px;color:#F2EDE6;line-height:1.55;font-style:italic;margin-bottom:14px}
+.rosario-footer{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.rosario-pray-btn{flex:1;padding:10px;background:#1E180F;border:1px solid rgba(201,165,90,0.35);border-radius:var(--radius-sm);color:#C9A55A;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-align:center;transition:background 0.15s}
+.rosario-pray-btn:active{background:#281F0A}
+.rosario-check-wrap{display:flex;align-items:center;gap:8px;cursor:pointer;flex-shrink:0}
+.rosario-checkbox{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--border);background:#0F0C09;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0}
+.rosario-checkbox.checked{background:#1E180F;border-color:#C9A55A}
+.rosario-checkbox.checked::after{content:'✓';color:#C9A55A;font-size:13px;font-weight:600}
+.rosario-check-label{font-size:12px;color:var(--muted)}
 .fin-card{background:#1E180F;border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;display:none}
 .fin-card.show{display:block}
 .fin-card h2{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#F2EDE6;margin-bottom:10px}
@@ -126,6 +146,7 @@ body{font-family:'DM Sans',sans-serif;background:#0F0C09;color:#F2EDE6;min-heigh
   <div class="intention-screen" id="intention-screen">
     <div class="mode-toggle">
       <div class="mode-btn active" id="mode-btn-complet" onclick="setMode('complet')">Chapelet complet</div>
+      <div class="mode-btn" id="mode-btn-rosario" onclick="setMode('rosario')">Rosario</div>
       <div class="mode-btn" id="mode-btn-rapide" onclick="setMode('rapide')">Dizaine rapide</div>
     </div>
 
@@ -139,6 +160,10 @@ body{font-family:'DM Sans',sans-serif;background:#0F0C09;color:#F2EDE6;min-heigh
       <button class="btn-gold-full" onclick="saveIntentionAndStart()">Commencer le chapelet →</button>
       <button class="btn-skip" onclick="startWithoutIntention()">Commencer sans intention</button>
       <button class="btn-skip" style="margin-top:8px;color:var(--gold);border-color:var(--border)" onclick="showIntentionsCatalogue()">📜 Reprendre une intention passée</button>
+    </div>
+
+    <div id="mode-rosario" style="display:none">
+      <div id="rosario-content-home"></div>
     </div>
 
     <div id="mode-rapide" style="display:none">
@@ -218,6 +243,11 @@ body{font-family:'DM Sans',sans-serif;background:#0F0C09;color:#F2EDE6;min-heigh
         <p style="font-size:13px;color:var(--gold);margin-bottom:14px">N'oublie pas de l'indiquer dans Rosario 😉</p>
         <button class="btn-gold" onclick="newRosary()">Nouveau chapelet</button>
       </div>
+    </div>
+
+    <!-- Onglet Rosario -->
+    <div id="page-rosario" style="display:none">
+      <div id="rosario-content"></div>
     </div>
 
     <!-- Onglet Intentions -->
@@ -479,12 +509,145 @@ let intentions = JSON.parse(localStorage.getItem('chapelet_intentions') || '[]')
 const MYSTERE_NAMES = ['Joyeux', 'Lumineux', 'Douloureux', 'Glorieux'];
 
 function showPage(name) {
+  const pages = ['chapelet','intentions'];
   document.querySelectorAll('.page-tab').forEach((t,i) => {
-    t.classList.toggle('active', ['chapelet','intentions'][i] === name);
+    t.classList.toggle('active', pages[i] === name);
   });
   document.getElementById('page-chapelet').style.display = name === 'chapelet' ? 'block' : 'none';
+  document.getElementById('page-rosario').style.display = 'none';
   document.getElementById('page-intentions').style.display = name === 'intentions' ? 'block' : 'none';
   if (name === 'intentions') renderIntentions();
+}
+
+// ---- ROSARIO ----
+const ROSARIO_GROUPS = [
+  {
+    id: 'g1',
+    name: 'Groupe 1',
+    dizaine: 2, // 2e dizaine (index 1)
+    intention: 'Prions pour grandir en sainteté, l\'unité de l\'Église et des chrétiens'
+  },
+  {
+    id: 'g2',
+    name: 'Groupe 2',
+    dizaine: 3, // 3e dizaine (index 2)
+    intention: 'Contre l\'influence de la pornographie'
+  },
+  {
+    id: 'g3',
+    name: 'Groupe 3',
+    dizaine: 4, // 4e dizaine (index 3)
+    intention: 'Prions urgemment pour le respect de la vie'
+  }
+];
+
+function getTodayMystereIdx() {
+  const day = new Date().getDay(); // 0=Dim, 1=Lun, ... 6=Sam
+  // Joyeux: Lun(1) & Sam(6)
+  // Lumineux: Jeu(4)
+  // Douloureux: Mar(2) & Ven(5)
+  // Glorieux: Mer(3) & Dim(0)
+  if (day === 1 || day === 6) return 0; // Joyeux
+  if (day === 4) return 1;              // Lumineux
+  if (day === 2 || day === 5) return 2; // Douloureux
+  return 3;                             // Glorieux (Mer & Dim)
+}
+
+function getRosarioChecked() {
+  const today = new Date().toISOString().slice(0, 10);
+  const stored = JSON.parse(localStorage.getItem('rosario_checked') || '{}');
+  // Reset if different day
+  if (stored.date !== today) return {};
+  return stored.checked || {};
+}
+
+function setRosarioChecked(groupId, val) {
+  const today = new Date().toISOString().slice(0, 10);
+  const stored = JSON.parse(localStorage.getItem('rosario_checked') || '{}');
+  let checked = (stored.date === today) ? (stored.checked || {}) : {};
+  checked[groupId] = val;
+  localStorage.setItem('rosario_checked', JSON.stringify({ date: today, checked }));
+}
+
+function renderRosarioHome() {
+  renderRosarioInto('rosario-content-home');
+}
+
+function renderRosario() {
+  renderRosarioInto('rosario-content');
+}
+
+function renderRosarioInto(containerId) {
+  const mystereIdx = getTodayMystereIdx();
+  const mystere = MYSTERES[mystereIdx];
+  const JOURS = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const today = JOURS[new Date().getDay()];
+  const checked = getRosarioChecked();
+
+  let html = `<div class="rosario-day-banner">
+    Mystères du jour &nbsp;<span>${mystere.name.replace('Mystères ','').replace('mystères ','')}</span>
+    <span style="color:var(--muted);font-size:11px">${today}</span>
+  </div>`;
+
+  ROSARIO_GROUPS.forEach(group => {
+    const dizaineItem = mystere.items[group.dizaine - 1]; // dizaine is 1-indexed
+    const isDone = !!checked[group.id];
+
+    html += `<div class="rosario-card" id="rosario-card-${group.id}" style="${isDone ? 'opacity:0.65' : ''}">
+      <div class="rosario-card-header">
+        <div>
+          <div class="rosario-group-name">${group.name}</div>
+          <div class="rosario-group-sub">${group.dizaine}e dizaine</div>
+        </div>
+        <div class="rosario-dizaine-num">${group.dizaine}</div>
+      </div>
+      <div class="rosario-body">
+        <div class="rosario-mystery-title">${dizaineItem.titre}</div>
+        <div class="rosario-intention-label">Intention</div>
+        <div class="rosario-intention-text">${group.intention}</div>
+        <div class="rosario-footer">
+          <button class="rosario-pray-btn" onclick="prayRosarioDizaine(${mystereIdx}, ${group.dizaine - 1})">Prier cette dizaine</button>
+          <div class="rosario-check-wrap" onclick="toggleRosarioCheck('${group.id}')">
+            <div class="rosario-checkbox ${isDone ? 'checked' : ''}" id="rosario-chk-${group.id}"></div>
+            <span class="rosario-check-label">${isDone ? 'Priée ✓' : 'Priée ?'}</span>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  document.getElementById(containerId).innerHTML = html;
+}
+
+function toggleRosarioCheck(groupId) {
+  const checked = getRosarioChecked();
+  const newVal = !checked[groupId];
+  setRosarioChecked(groupId, newVal);
+  // Update UI without full re-render
+  const card = document.getElementById(`rosario-card-${groupId}`);
+  const chk = document.getElementById(`rosario-chk-${groupId}`);
+  const label = chk.nextElementSibling;
+  chk.classList.toggle('checked', newVal);
+  label.textContent = newVal ? 'Priée ✓' : 'Priée ?';
+  if (card) card.style.opacity = newVal ? '0.65' : '1';
+}
+
+function prayRosarioDizaine(mIdx, dizaineIdx) {
+  // If on home screen, go to rosary screen first
+  const intentionScreen = document.getElementById('intention-screen');
+  if (!intentionScreen.classList.contains('hidden')) {
+    intentionScreen.classList.add('hidden');
+    document.getElementById('rosary-screen').classList.add('visible');
+  }
+  showPage('chapelet');
+  // Update mystere tabs
+  document.querySelectorAll('.mystery-tab').forEach((t,i) => t.classList.toggle('active', i === mIdx));
+  window.mystereIdx = mIdx;
+  // Build a quick dizaine sequence and start it
+  sequence = buildQuickSequence(dizaineIdx);
+  stepIdx = 0;
+  render();
+  window.scrollTo(0, 0);
 }
 
 // ---- Mode toggle ----
@@ -502,10 +665,13 @@ const MYSTERE_META = [
 function setMode(mode) {
   currentMode = mode;
   document.getElementById('mode-btn-complet').classList.toggle('active', mode === 'complet');
+  document.getElementById('mode-btn-rosario').classList.toggle('active', mode === 'rosario');
   document.getElementById('mode-btn-rapide').classList.toggle('active', mode === 'rapide');
   document.getElementById('mode-complet').style.display = mode === 'complet' ? 'block' : 'none';
+  document.getElementById('mode-rosario').style.display = mode === 'rosario' ? 'block' : 'none';
   document.getElementById('mode-rapide').style.display = mode === 'rapide' ? 'block' : 'none';
   if (mode === 'rapide') renderQuickSelectors();
+  if (mode === 'rosario') renderRosarioHome();
 }
 
 function renderQuickSelectors() {
