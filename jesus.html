@@ -20,6 +20,7 @@ body{font-family:'DM Sans',sans-serif;background:#0F0C09;color:#F2EDE6;min-heigh
 .section-label{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:10px;font-weight:500}
 .prayer-btn{width:100%;background:#181310;border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;text-align:left;margin-bottom:10px;cursor:pointer;transition:background 0.2s;display:flex;align-items:center;gap:14px}
 .prayer-btn:hover{background:#1E180F}
+.prayer-btn.active{background:#1E180F;border-color:var(--gold)}
 .prayer-icon{font-size:22px;flex-shrink:0}
 .prayer-btn-text h3{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:#F2EDE6}
 .prayer-btn-text p{font-size:12px;color:var(--muted);margin-top:2px}
@@ -31,11 +32,12 @@ body{font-family:'DM Sans',sans-serif;background:#0F0C09;color:#F2EDE6;min-heigh
 .back-btn{background:transparent;border:none;color:var(--gold);font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;padding:0;margin-bottom:12px;display:none}
 .back-btn.show{display:block}
 .back-link{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--gold);text-decoration:none;position:absolute;left:20px;top:calc(56px + env(safe-area-inset-top,0px));opacity:0.85}
+.back-link:hover{opacity:1}
 .icon-block{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 0 8px;gap:10px}
 .icon-cross{width:72px;height:72px;position:relative;margin:0 auto}
 .icon-cross::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:16px;height:100%;background:linear-gradient(180deg,#C9A55A,#E0BC7A);border-radius:8px}
 .icon-cross::after{content:'';position:absolute;top:22px;left:0;width:100%;height:16px;background:linear-gradient(90deg,#C9A55A,#E0BC7A);border-radius:8px}
-.icon-caption{font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--muted);letter-spacing:0.05em;text-align:center;line-height:1.7;font-style:italic}
+.icon-caption{font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;text-align:center}
 </style>
 </head>
 <body>
@@ -46,38 +48,51 @@ body{font-family:'DM Sans',sans-serif;background:#0F0C09;color:#F2EDE6;min-heigh
 </div>
 <div class="content">
   <button class="back-btn" id="back-btn" onclick="closeAll()">← Retour</button>
+
   <div id="list-view">
+
     <div class="icon-block">
       <div class="icon-cross"></div>
-      <div class="icon-caption">« Je suis le chemin, la vérité et la vie. »<br>Jean 14, 6</div>
+      <div class="icon-caption">« Je suis le chemin, la vérité et la vie. »<br>Jean 14,6</div>
     </div>
+
     <div class="section-label" style="margin-top:20px">Prières classiques</div>
+
     <button class="prayer-btn" onclick="toggle('anima-christi')">
       <span class="prayer-icon">🫀</span>
       <div class="prayer-btn-text"><h3>Anima Christi</h3><p>Prière après la communion · XIVe siècle</p></div>
     </button>
+
     <button class="prayer-btn" onclick="toggle('sacre-coeur')">
       <span class="prayer-icon">❤️‍🔥</span>
       <div class="prayer-btn-text"><h3>Prière au Sacré-Cœur</h3><p>Consécration à l'amour de Jésus</p></div>
     </button>
+
     <button class="prayer-btn" onclick="toggle('croix')">
       <span class="prayer-icon">✝️</span>
       <div class="prayer-btn-text"><h3>Devant le Crucifix</h3><p>Contempler le Christ en croix</p></div>
     </button>
+
     <div class="section-label" style="margin-top:20px">Abandon &amp; Confiance</div>
+
     <button class="prayer-btn" onclick="toggle('abandon')">
       <span class="prayer-icon">🕊</span>
       <div class="prayer-btn-text"><h3>Prière d'abandon</h3><p>Charles de Foucauld</p></div>
     </button>
+
     <button class="prayer-btn" onclick="toggle('misericorde')">
       <span class="prayer-icon">🌊</span>
       <div class="prayer-btn-text"><h3>Chapelet de la Miséricorde</h3><p>Invocation en temps d'épreuve</p></div>
     </button>
+
     <button class="prayer-btn" onclick="toggle('acte-amour')">
       <span class="prayer-icon">✨</span>
       <div class="prayer-btn-text"><h3>Acte d'amour</h3><p>Offrir son amour à Jésus</p></div>
     </button>
+
   </div>
+
+  <!-- Anima Christi -->
   <div class="prayer-display" id="anima-christi">
     <h2>Anima Christi</h2>
     <div class="prayer-text">Âme du Christ, sanctifie-moi.
@@ -97,8 +112,10 @@ afin qu'avec tes saints je te loue
 dans les siècles des siècles.
 
 Amen.</div>
-    <div class="prayer-note">Prière du XIVe siècle, recommandée par saint Ignace de Loyola après la communion. Elle invite à s'unir intimement au Christ dans chaque dimension de son être — âme, corps, sang, passion.</div>
+    <div class="prayer-note">Prière du XIVe siècle, attribuée à saint Ignace de Loyola qui la recommandait après la communion. Elle invite à s'unir intimement au Christ dans chaque dimension de son être — âme, corps, sang, passion.</div>
   </div>
+
+  <!-- Sacré-Cœur -->
   <div class="prayer-display" id="sacre-coeur">
     <h2>Prière au Sacré-Cœur</h2>
     <div class="prayer-text">Ô Jésus,
@@ -122,6 +139,8 @@ Fais de moi un homme selon ton Cœur.
 Amen.</div>
     <div class="prayer-note">La dévotion au Sacré-Cœur, popularisée par sainte Marguerite-Marie Alacoque au XVIIe siècle, est une contemplation de l'amour infini de Jésus pour l'humanité, symbolisé par son cœur transpercé.</div>
   </div>
+
+  <!-- Devant le Crucifix -->
   <div class="prayer-display" id="croix">
     <h2>Devant le Crucifix</h2>
     <div class="prayer-text">Te voilà, Seigneur,
@@ -148,6 +167,8 @@ comme on s'appuie sur quelqu'un.
 Amen.</div>
     <div class="prayer-note">Prière de contemplation devant un crucifix. La Croix est au cœur de la foi catholique : non pas un symbole de défaite, mais le lieu où l'amour de Dieu s'est révélé le plus pleinement.</div>
   </div>
+
+  <!-- Abandon - Charles de Foucauld -->
   <div class="prayer-display" id="abandon">
     <h2>Prière d'abandon</h2>
     <div class="prayer-text">Père,
@@ -175,8 +196,10 @@ avec une infinie confiance,
 car tu es mon Père.
 
 Amen.</div>
-    <div class="prayer-note">Prière de Charles de Foucauld (1858–1916), ermite et mystique, béatifié en 2005. Considérée comme l'une des plus belles expressions d'abandon confiant à la volonté divine.</div>
+    <div class="prayer-note">Prière de Charles de Foucauld (1858–1916), ermite et mystique, béatifié en 2005. Cette prière est souvent considérée comme l'une des plus belles expressions d'abandon confiant à la volonté divine.</div>
   </div>
+
+  <!-- Chapelet de la Miséricorde (invocation) -->
   <div class="prayer-display" id="misericorde">
     <h2>Chapelet de la Miséricorde</h2>
     <div class="prayer-text">Sur les grains du Notre-Père :
@@ -201,8 +224,10 @@ Dieu saint, Dieu fort,
 Dieu éternel,
 aie pitié de nous
 et du monde entier.</div>
-    <div class="prayer-note">Révélé à sainte Faustine Kowalska (1905–1938), ce chapelet se récite de préférence à 15h, l'heure de la mort du Christ. Message central : « L'humanité ne trouvera pas la paix tant qu'elle ne se tournera pas vers la Miséricorde divine. »</div>
+    <div class="prayer-note">Révélé à sainte Faustine Kowalska (1905–1938), ce chapelet s'inscrit dans la dévotion à la Miséricorde divine. Il se récite à 15h, l'heure de la mort du Christ. Le message central : « L'humanité ne trouvera pas la paix tant qu'elle ne se tournera pas vers la Miséricorde divine. »</div>
   </div>
+
+  <!-- Acte d'amour -->
   <div class="prayer-display" id="acte-amour">
     <h2>Acte d'amour</h2>
     <div class="prayer-text">Jésus,
@@ -224,17 +249,23 @@ par amour ne se perd.
 Je te prends au mot.
 
 Amen.</div>
-    <div class="prayer-note">Prière pour ceux qui peinent à prier ou se sentent loin de Dieu. Elle s'inspire de la théologie de la présence de Dieu au cœur de l'âme, chère à sainte Thérèse d'Avila et Jean de la Croix.</div>
+    <div class="prayer-note">Prière contemporaine pour ceux qui peinent à prier ou se sentent loin de Dieu. Elle s'inspire de la théologie de la présence de Dieu au cœur de l'âme, chère à sainte Thérèse d'Avila et Jean de la Croix.</div>
   </div>
+
 </div>
+
 <script>
 let current = null;
 function toggle(id) {
   const display = document.getElementById(id);
   const listView = document.getElementById('list-view');
   const backBtn = document.getElementById('back-btn');
-  if (current && current !== id) { document.getElementById(current).classList.remove('open'); }
-  if (current === id) { closeAll(); return; }
+  if (current && current !== id) {
+    document.getElementById(current).classList.remove('open');
+  }
+  if (current === id) {
+    closeAll(); return;
+  }
   current = id;
   listView.style.display = 'none';
   display.classList.add('open');
