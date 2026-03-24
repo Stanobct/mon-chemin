@@ -190,6 +190,33 @@
       margin-top: 18px;
       font-size: 13px;
     }
+    .inline-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: 1px solid rgba(201,165,90,0.25);
+      border-radius: 999px;
+      color: var(--gold);
+      font-family: "DM Sans", sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 7px 14px 7px 10px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .inline-back-btn:active {
+      background: rgba(201,165,90,0.08);
+      border-color: rgba(201,165,90,0.45);
+    }
+    .inline-back-btn .arrow {
+      font-size: 15px;
+      line-height: 1;
+      transform: translateY(-1px);
+    }
     #back-btn {
       position: fixed;
       bottom: calc(16px + env(safe-area-inset-bottom));
@@ -268,6 +295,7 @@
   </main>
 
   <section id="anima-christi" class="prayer-content">
+    <button type="button" class="inline-back-btn" onclick="closeAll()"><span class="arrow">←</span> Retour</button>
     <h2>Anima Christi</h2>
     <div class="prayer-tagline">Union au Christ après la communion</div>
     <div class="prayer-text">
@@ -289,6 +317,7 @@ je te loue dans les siècles des siècles. Amen.
   </section>
 
   <section id="sacre-coeur" class="prayer-content">
+    <button type="button" class="inline-back-btn" onclick="closeAll()"><span class="arrow">←</span> Retour</button>
     <h2>Prière au Sacré-Cœur de Jésus</h2>
     <div class="prayer-tagline">Confiance dans le Cœur transpercé</div>
     <div class="prayer-text">
@@ -314,6 +343,7 @@ maintenant et pour toujours. Amen.
   </section>
 
   <section id="abandon" class="prayer-content">
+    <button type="button" class="inline-back-btn" onclick="closeAll()"><span class="arrow">&larr;</span> Retour</button>
     <h2>Acte d’abandon</h2>
     <div class="prayer-tagline">Se remettre entièrement à Dieu</div>
     <div class="prayer-text">
@@ -381,7 +411,9 @@ entre tes mains de Père. Amen.
         if (pushHash) {
           history.replaceState(null, '', location.pathname + location.search);
         }
+        window.scrollTo({ top: 0, behavior: 'instant' });
       }
+      window.closeAll = closeAll;
 
       buttons.forEach(btn => {
         btn.addEventListener('click', () => {
