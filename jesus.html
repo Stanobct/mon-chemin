@@ -10,62 +10,266 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --cream: #0F0C09; --parchment: #1A1410; --gold: #C9A55A; --gold-light: #E0BC7A;
-      --gold-pale: #1E180F; --deep: #F2EDE6; --brown: #B09070; --muted: #7A6A58;
-      --border: rgba(201,165,90,0.2); --radius: 16px; --radius-sm: 10px;
-      --bg-main: #0F0C09; --bg-card: #181310; --bg-card-elevated: #201A14;
-      --text-primary: #F2EDE6; --text-secondary: #9A8470;
+      --cream: #0F0C09;
+      --parchment: #1A1410;
+      --gold: #C9A55A;
+      --gold-light: #E0BC7A;
+      --gold-pale: #1E180F;
+      --deep: #F2EDE6;
+      --brown: #B09070;
+      --muted: #7A6A58;
+      --border: rgba(201,165,90,0.2);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --bg-main: #0F0C09;
+      --bg-card: #181310;
+      --bg-card-elevated: #201A14;
+      --text-primary: #F2EDE6;
+      --text-secondary: #9A8470;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--bg-main); color: var(--text-primary); min-height: 100vh; padding-bottom: calc(32px + env(safe-area-inset-bottom)); }
-    .app-header { background: #080604; border-bottom: 1px solid rgba(201,165,90,0.12); padding: calc(52px + env(safe-area-inset-top)) 20px 24px; text-align: center; }
-    .app-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600; color: var(--gold-light); letter-spacing: 0.04em; }
-    #list-view { padding: 20px 16px; }
-    .section-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); padding: 0 0 16px; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
-    .prayer-btn { display: block; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 12px; text-decoration: none; color: var(--text-primary); transition: all 0.2s; position: relative; overflow: hidden; }
-    .prayer-btn::before { content: ''; position: absolute; top: -50%; right: -50%; width: 100%; height: 100%; background: linear-gradient(135deg, transparent, rgba(201,165,90,0.05)); transition: all 0.3s; }
-    .prayer-btn:hover::before, .prayer-btn:active::before { transform: scale(1.5); }
-    .prayer-btn h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; margin-bottom: 8px; color: var(--text-primary); }
-    .prayer-btn p { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
-    .prayer-content { display: none; background: var(--bg-card-elevated); border-radius: var(--radius); padding: 24px; margin: 20px 16px; border: 1px solid var(--border); position: relative; }
-    .prayer-content.open { display: block; animation: fadeIn 0.3s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    .prayer-content h2 { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--gold); margin-bottom: 16px; text-align: center; }
-    .prayer-text { font-size: 18px; line-height: 1.6; text-align: justify; white-space: pre-line; color: var(--text-primary); }
-    .prayer-source { font-style: italic; color: var(--text-secondary); text-align: right; margin-top: 20px; font-size: 14px; }
-    #back-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--bg-main); padding: 12px 24px; border-radius: 25px; font-weight: 500; display: none; cursor: pointer; transition: all 0.2s; z-index: 100; }
-    #back-btn.show { display: block; }
-    #back-btn:active { transform: translateX(-50%) scale(0.98); }
-    @media (min-width: 768px) { .prayer-content { margin: 20px auto; max-width: 600px; } }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-main);
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding-bottom: calc(32px + env(safe-area-inset-bottom));
+    }
+    .app-header {
+      background: #080604;
+      border-bottom: 1px solid rgba(201,165,90,0.12);
+      padding: calc(52px + env(safe-area-inset-top)) 20px 24px;
+      text-align: center;
+    }
+    .app-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 30px;
+      font-weight: 600;
+      color: var(--gold-light);
+      letter-spacing: 0.04em;
+    }
+    .app-subtitle {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 6px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    #list-view {
+      padding: 20px 16px 32px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .section-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .prayer-btn {
+      width: 100%;
+      background: radial-gradient(circle at top left, rgba(201,165,90,0.08), transparent 55%), var(--bg-card);
+      border-radius: var(--radius);
+      border: 1px solid rgba(201,165,90,0.18);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text-primary);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, border-color 0.12s ease-out;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+    }
+    .prayer-btn:active {
+      transform: scale(0.98);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+      border-color: rgba(201,165,90,0.35);
+    }
+    .prayer-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: rgba(201,165,90,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .prayer-meta {
+      flex: 1;
+    }
+    .prayer-meta h3 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text-primary);
+    }
+    .prayer-meta p {
+      font-size: 12px;
+      color: var(--text-secondary);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .chevron {
+      font-size: 18px;
+      color: var(--gold);
+    }
+    .prayer-content {
+      display: none;
+      background: radial-gradient(circle at top, rgba(201,165,90,0.14), transparent 60%), var(--bg-card-elevated);
+      border-radius: var(--radius);
+      padding: 22px 18px 24px;
+      margin: 16px auto 0;
+      border: 1px solid rgba(201,165,90,0.28);
+      max-width: 720px;
+      position: relative;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.7);
+    }
+    .prayer-content.open {
+      display: block;
+      animation: fadeIn 0.25s ease-out;
+    }
+    .prayer-content::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      border: 1px solid rgba(255,255,255,0.04);
+      pointer-events: none;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .prayer-content h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--deep);
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .prayer-tagline {
+      font-size: 13px;
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .prayer-text {
+      font-size: 17px;
+      line-height: 1.7;
+      white-space: pre-line;
+      text-align: justify;
+      color: var(--text-primary);
+    }
+    .prayer-source {
+      font-style: italic;
+      color: var(--text-secondary);
+      text-align: right;
+      margin-top: 18px;
+      font-size: 13px;
+    }
+    #back-btn {
+      position: fixed;
+      bottom: calc(16px + env(safe-area-inset-bottom));
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(120deg, var(--gold), var(--gold-light));
+      color: #1A1410;
+      padding: 11px 24px;
+      border-radius: 999px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.7);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 11px;
+      z-index: 50;
+    }
+    #back-btn.show {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #back-btn span {
+      font-size: 16px;
+      display: inline-block;
+      transform: translateY(-1px);
+    }
+    #back-btn:active {
+      transform: translateX(-50%) scale(0.97);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.7);
+    }
+    @media (min-width: 768px) {
+      .app-title { font-size: 32px; }
+      .prayer-content { padding: 26px 26px 28px; }
+    }
   </style>
 </head>
 <body>
-  <div class="app-header">
-    <h1 class="app-title">Prier Jésus</h1>
-    <p style="color: var(--text-secondary); font-size: 14px; margin-top: 8px;">Anima Christi • Sacré-Cœur • Abandon</p>
-  </div>
+  <header class="app-header">
+    <div class="app-title">Prier Jésus</div>
+    <div class="app-subtitle">Anima Christi • Sacré-Cœur • Abandon</div>
+  </header>
 
-  <div id="list-view">
+  <main id="list-view">
     <h2 class="section-title">Prières classiques</h2>
-    
-    <a href="#" onclick="toggle('anima-christi')" class="prayer-btn">
-      <h3>Anima Christi</h3>
-      <p>Âme du Christ, sanctifie-moi...</p>
-    </a>
-    
-    <a href="#" onclick="toggle('sacre-coeur')" class="prayer-btn">
-      <h3>Sacré-Cœur</h3>
-      <p>Ô Cœur Sacré de Jésus...</p>
-    </a>
-    
-    <a href="#" onclick="toggle('abandon')" class="prayer-btn">
-      <h3>Abandon total</h3>
-      <p>Mon Dieu, je me remets tout entier...</p>
-    </a>
-  </div>
+    <div class="cards">
+      <button type="button" class="prayer-btn" data-target="anima-christi">
+        <div class="prayer-icon">✙</div>
+        <div class="prayer-meta">
+          <h3>Anima Christi</h3>
+          <p>Prière après la communion, union au Christ</p>
+        </div>
+        <div class="chevron">›</div>
+      </button>
 
-  <div id="anima-christi" class="prayer-content">
+      <button type="button" class="prayer-btn" data-target="sacre-coeur">
+        <div class="prayer-icon">♥</div>
+        <div class="prayer-meta">
+          <h3>Sacré-Cœur</h3>
+          <p>Confiance et consécration au Cœur de Jésus</p>
+        </div>
+        <div class="chevron">›</div>
+      </button>
+
+      <button type="button" class="prayer-btn" data-target="abandon">
+        <div class="prayer-icon">✶</div>
+        <div class="prayer-meta">
+          <h3>Abandon</h3>
+          <p>Remise totale à la Providence de Dieu</p>
+        </div>
+        <div class="chevron">›</div>
+      </button>
+    </div>
+  </main>
+
+  <section id="anima-christi" class="prayer-content">
     <h2>Anima Christi</h2>
+    <div class="prayer-tagline">Union au Christ après la communion</div>
     <div class="prayer-text">
 Âme du Christ, sanctifie-moi.
 Corps du Christ, sauve-moi.
@@ -81,92 +285,142 @@ Fais-moi venir à toi,
 afin qu'avec tes saints
 je te loue dans les siècles des siècles. Amen.
     </div>
-    <p class="prayer-source">Prière du XIVe siècle, recommandée par saint Ignace de Loyola après la communion.</p>
-  </div>
+    <p class="prayer-source">Prière du XIVᵉ siècle, recommandée par saint Ignace de Loyola après la communion.</p>
+  </section>
 
-  <div id="sacre-coeur" class="prayer-content">
-    <h2>Prière au Sacré-Cœur</h2>
+  <section id="sacre-coeur" class="prayer-content">
+    <h2>Prière au Sacré-Cœur de Jésus</h2>
+    <div class="prayer-tagline">Confiance dans le Cœur transpercé</div>
     <div class="prayer-text">
 Ô Cœur Sacré de Jésus,
 source de toute consolation,
-j'y mets toute ma confiance.
-Fais que je sois uni à toi
-comme le sarment à la vigne,
-afin que ta vie circule en moi.
-Je me consacre à ton amour
-et je te promets fidélité.
-Protège-moi et sauve-moi. Amen.
-    </div>
-    <p class="prayer-source">Inspirée des révélations à sainte Marguerite-Marie.</p>
-  </div>
+j’ai confiance en toi.
 
-  <div id="abandon" class="prayer-content">
-    <h2>Acte d'abandon total</h2>
+Reçois mon cœur, rends-le semblable au tien :
+doux et humble, brûlant de charité.
+Purifie mes intentions,
+guéris mes peurs et mes blessures,
+élargis mon cœur à la mesure du tien.
+
+Que ta présence me soutienne
+dans les épreuves et les combats,
+et qu’à travers ma faiblesse
+resplendisse la puissance de ton amour.
+
+Cœur de Jésus, j’ai confiance en toi,
+maintenant et pour toujours. Amen.
+    </div>
+    <p class="prayer-source">Dans l’esprit de la dévotion au Sacré-Cœur et de la confiance en la miséricorde du Christ.</p>
+  </section>
+
+  <section id="abandon" class="prayer-content">
+    <h2>Acte d’abandon</h2>
+    <div class="prayer-tagline">Se remettre entièrement à Dieu</div>
     <div class="prayer-text">
-Mon Dieu, je ne connais pas l'avenir,
-mais je me remets tout entier à ta divine Providence.
-Fais de moi ce qu'il te plaira.
-Je suis à toi, et tout ce que j'ai est à toi.
-Quoi que tu permettes que m'arrive,
-je t'en remercie toujours.
-Je m'abandonne à toi
-avec toute l'affection de mon cœur. Amen.
-    </div>
-    <p class="prayer-source">Père Jean-Nicolas Grou, s.j. (XVIIIe siècle).</p>
-  </div>
+Mon Dieu, je ne sais pas ce que sera demain,
+mais je me confie à toi.
 
-  <button id="back-btn" onclick="closeAll()">← Retour</button>
+Entre tes mains, je remets
+ce que je suis, ce que j’ai
+et tout ce que je traverserai.
+Conduis-moi par les chemins
+que tu connais et que tu choisis.
+
+Apprends-moi à accueillir chaque jour
+comme un don de ta Providence,
+à ne rien retenir pour moi
+et à tout espérer de ton amour.
+
+Qu’en toute chose
+ta volonté soit faite,
+et que mon cœur demeure en paix
+entre tes mains de Père. Amen.
+    </div>
+    <p class="prayer-source">Inspiré de la tradition spirituelle de l’abandon entre les mains de Dieu.</p>
+  </section>
+
+  <button id="back-btn" type="button">
+    <span>←</span> Retour aux prières
+  </button>
 
   <script>
-    let current = null;
-    function toggle(id) {
-      const display = document.getElementById(id);
-      if (!display) {
-        console.error('Div #' + id + ' manquante !');
-        return;
-      }
+    (function () {
+      let current = null;
       const listView = document.getElementById('list-view');
       const backBtn = document.getElementById('back-btn');
-      // Ferme l'actuelle si différente
-      if (current && current !== id) {
-        document.getElementById(current).classList.remove('open');
+      const buttons = document.querySelectorAll('.prayer-btn');
+
+      function openPrayer(id, pushHash = true) {
+        const target = document.getElementById(id);
+        if (!target) {
+          console.error('Section de prière introuvable : #' + id);
+          return;
+        }
+        if (current && current !== id) {
+          const prev = document.getElementById(current);
+          if (prev) prev.classList.remove('open');
+        }
+        current = id;
+        listView.style.display = 'none';
+        target.classList.add('open');
+        backBtn.classList.add('show');
+        if (pushHash) {
+          history.replaceState(null, '', '#' + id);
+        }
+        window.scrollTo({ top: 0, behavior: 'instant' });
       }
-      // Toggle
-      if (current === id) {
+
+      function closeAll(pushHash = true) {
+        if (current) {
+          const prev = document.getElementById(current);
+          if (prev) prev.classList.remove('open');
+          current = null;
+        }
+        listView.style.display = 'block';
+        backBtn.classList.remove('show');
+        if (pushHash) {
+          history.replaceState(null, '', location.pathname + location.search);
+        }
+      }
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-target');
+          if (!id) return;
+          if (current === id) {
+            closeAll();
+          } else {
+            openPrayer(id);
+          }
+        });
+      });
+
+      backBtn.addEventListener('click', () => {
         closeAll();
-        return;
-      }
-      current = id;
-      listView.style.display = 'none';
-      display.classList.add('open');
-      backBtn.classList.add('show');
-      window.scrollTo(0, 0);
-      // Update hash
-      window.location.hash = id;
-    }
-    function closeAll() {
-      if (current) {
-        document.getElementById(current).classList.remove('open');
-        current = null;
-      }
-      document.getElementById('list-view').style.display = 'block';
-      document.getElementById('back-btn').classList.remove('show');
-      window.location.hash = '';
-    }
-    // Auto-toggle au hash
-    window.addEventListener('hashchange', () => {
+      });
+
+      window.addEventListener('hashchange', () => {
+        const hash = window.location.hash.replace('#', '');
+        if (!hash) {
+          closeAll(false);
+          return;
+        }
+        const target = document.getElementById(hash);
+        if (target) {
+          openPrayer(hash, false);
+        } else {
+          closeAll(false);
+        }
+      });
+
       if (window.location.hash) {
-        const id = window.location.hash.replace('#', '');
-        toggle(id);
-      } else {
-        closeAll();
+        const hash = window.location.hash.replace('#', '');
+        const target = document.getElementById(hash);
+        if (target) {
+          openPrayer(hash, false);
+        }
       }
-    });
-    // Init
-    if (window.location.hash) {
-      const id = window.location.hash.replace('#', '');
-      toggle(id);
-    }
+    })();
   </script>
 </body>
 </html>
