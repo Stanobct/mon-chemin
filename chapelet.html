@@ -520,24 +520,42 @@ function showPage(name) {
 }
 
 // ---- ROSARIO ----
+// Rotation automatique des dizaines — semaine de référence : 24 mars 2026
+// Dizaines de départ : G1=3, G2=4, G3=5 — rotation +1 chaque semaine, en boucle sur 5
+function getWeekOffset() {
+  const ref = new Date(2026, 2, 23); // lundi 23 mars 2026
+  ref.setHours(0, 0, 0, 0);
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+  const diffDays = Math.floor((now - ref) / (1000 * 60 * 60 * 24));
+  return Math.floor(diffDays / 7);
+}
+
+const _weekOffset = getWeekOffset();
+const ROSARIO_INTENTIONS = [
+  'Pour la sainteté du groupe, l\'unité de l\'Église et des chrétiens',
+  'Contre l\'influence de la pornographie et les victimes',
+  'Prions urgemment pour la vie'
+];
+
 const ROSARIO_GROUPS = [
   {
     id: 'g1',
     name: 'Groupe 1',
-    dizaine: 2, // 2e dizaine (index 1)
-    intention: 'Prions pour grandir en sainteté, l\'unité de l\'Église et des chrétiens'
+    dizaine: ((3 - 1 + _weekOffset) % 5) + 1,
+    intention: ROSARIO_INTENTIONS[0]
   },
   {
     id: 'g2',
     name: 'Groupe 2',
-    dizaine: 3, // 3e dizaine (index 2)
-    intention: 'Contre l\'influence de la pornographie'
+    dizaine: ((4 - 1 + _weekOffset) % 5) + 1,
+    intention: ROSARIO_INTENTIONS[1]
   },
   {
     id: 'g3',
     name: 'Groupe 3',
-    dizaine: 4, // 4e dizaine (index 3)
-    intention: 'Prions urgemment pour le respect de la vie'
+    dizaine: ((5 - 1 + _weekOffset) % 5) + 1,
+    intention: ROSARIO_INTENTIONS[2]
   }
 ];
 
