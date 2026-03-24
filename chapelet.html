@@ -202,6 +202,7 @@ body{font-family:'DM Sans',sans-serif;background:#0F0C09;color:#F2EDE6;min-heigh
 
     <!-- Onglet Chapelet -->
     <div id="page-chapelet">
+      <button onclick="showPage('rosario')" style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid rgba(201,165,90,0.25);border-radius:999px;color:#C9A55A;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:7px 14px 7px 10px;cursor:pointer;margin-bottom:14px;">← Rosario</button>
       <div class="mystery-tabs">
         <div class="mystery-tab active" onclick="setMystere(0)">Joyeux</div>
         <div class="mystery-tab" onclick="setMystere(1)">Lumineux</div>
@@ -217,6 +218,7 @@ body{font-family:'DM Sans',sans-serif;background:#0F0C09;color:#F2EDE6;min-heigh
       <div class="bead-card">
         <div class="mystery-name" id="mystery-name">Mystères joyeux</div>
         <div class="mystery-title" id="mystery-title"></div>
+        <img id="dizaine-image" src="" alt="Mystère contemplé" style="display:none;width:100%;max-height:260px;object-fit:contain;border-radius:10px;margin:10px 0;background:#0F0C09;">
         <div class="bead-counter" id="bead-counter"></div>
         <div class="prayer-name" id="prayer-name"></div>
         <div class="prayer-subtitle" id="prayer-subtitle"></div>
@@ -514,9 +516,10 @@ function showPage(name) {
     t.classList.toggle('active', pages[i] === name);
   });
   document.getElementById('page-chapelet').style.display = name === 'chapelet' ? 'block' : 'none';
-  document.getElementById('page-rosario').style.display = 'none';
+  document.getElementById('page-rosario').style.display = name === 'rosario' ? 'block' : 'none';
   document.getElementById('page-intentions').style.display = name === 'intentions' ? 'block' : 'none';
   if (name === 'intentions') renderIntentions();
+  if (name === 'rosario') renderRosario();
 }
 
 // ---- ROSARIO ----
@@ -887,6 +890,29 @@ function prev() {
   if(stepIdx > 0){ stepIdx--; render(); }
 }
 
+const DIZAINE_IMAGES = {
+  '0_1': 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/31c1a7b322cb871e5b2854073a21a84c377d5840.jpg',
+  '0_2': 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/98ad773f9ab60107a60dc6c5273992d3e7a9959e.jpg',
+  '0_3': 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/98ad773f9ab60107a60dc6c5273992d3e7a9959e.jpg',
+  '0_4': 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/b50746899549d8527437a51c99c797c907e04d49.jpg',
+  '0_5': 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/e8832d794b8f89ec521802f19faf68a71c9231a7.jpg',
+  '1_1': 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/29681d6a04becac2badc1c27187e924fd71aa884.jpg',
+  '1_2': 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/a5ba107031a80d28a50fcc4d257672cceab80fab.jpg',
+  '1_3': 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/3ce1f09fb361e5c72e79626300df97c53512f1b0.jpg',
+  '1_4': 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/3ce1f09fb361e5c72e79626300df97c53512f1b0.jpg',
+  '1_5': 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/6a5ade68bd4c68c99820b9bb96d6b954a724e117.jpg',
+  '2_1': 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/cd4ccc4724eb7d4ca9ebcf1985f431d8b997757a.jpg',
+  '2_2': 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/399e584cc2a15ebf2e94d4adb33a189c1419e8ae.jpg',
+  '2_3': 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/2be23b8653c3903644912fd4ac652b064a663c79.jpg',
+  '2_4': 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/1117c7f8ee39a1af3d4f5fada46ca1ad808b3536.jpg',
+  '2_5': 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/09cb68518a03d2635f1de4168629d65ef7c7536d.jpg',
+  '3_1': 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/b3996c021bd5cc196f8569653bf1c3dab63ac0f7.jpg',
+  '3_2': 'https://upload.wikimedia.org/wikipedia/commons/0/0f/Dosso_Dossi_022.jpg',
+  '3_3': 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/68147e5af0623bef9c638c66eac09e2da76e1b6c.jpg',
+  '3_4': 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/cf48e53a2e8cfdefe86f97f32192ea04ddd3fc2c.jpg',
+  '3_5': 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/282415fa43d8b5d029ad58500aed7934c7d4e4c5.jpg',
+};
+
 function render() {
   const step = sequence[stepIdx];
   const m = MYSTERES[mystereIdx];
@@ -909,6 +935,19 @@ function render() {
 
   document.getElementById('mystery-title').textContent =
     d >= 0 ? m.items[d].titre : '';
+
+  // Image de contemplation
+  const imgEl = document.getElementById('dizaine-image');
+  if (imgEl) {
+    const imgKey = mystereIdx + '_' + (d + 1);
+    const imgUrl = DIZAINE_IMAGES[imgKey];
+    if (imgUrl && d >= 0) {
+      imgEl.src = imgUrl;
+      imgEl.style.display = 'block';
+    } else {
+      imgEl.style.display = 'none';
+    }
+  }
 
   const beadsEl = document.getElementById('bead-counter');
   beadsEl.innerHTML = '';
