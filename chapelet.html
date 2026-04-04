@@ -566,7 +566,18 @@ function renderRosarioIntentionBanner() {
   if (!rosarioIntentionActive) return;
   const banner = document.createElement('div');
   banner.id = 'rosario-intention-banner';
-  banner.innerHTML = \`<span style="font-size:15px;margin-right:6px">🕊</span><span><strong>Intention&nbsp;:</strong> \${rosarioIntentionActive}</span><button onclick="clearRosarioIntentionBanner()" style="background:none;border:none;color:var(--muted);font-size:16px;cursor:pointer;margin-left:auto;padding:0">✕</button>\`;
+  const span1 = document.createElement('span');
+  span1.textContent = '🕊';
+  span1.style.cssText = 'font-size:15px;margin-right:6px';
+  const span2 = document.createElement('span');
+  span2.innerHTML = '<strong>Intention :</strong> ' + rosarioIntentionActive;
+  const btn = document.createElement('button');
+  btn.textContent = '✕';
+  btn.style.cssText = 'background:none;border:none;color:var(--muted);font-size:16px;cursor:pointer;margin-left:auto;padding:0';
+  btn.onclick = clearRosarioIntentionBanner;
+  banner.appendChild(span1);
+  banner.appendChild(span2);
+  banner.appendChild(btn);
   banner.style.cssText = 'display:flex;align-items:center;gap:6px;background:#1e160a;border:1px solid var(--accent);border-radius:var(--radius);padding:10px 14px;margin-bottom:14px;font-size:13px;color:#F2EDE6;line-height:1.4';
   const modeRapide = document.getElementById('mode-rapide');
   if (modeRapide) modeRapide.insertBefore(banner, modeRapide.firstChild);
@@ -637,14 +648,13 @@ function renderRosario() {
 
 function renderRosarioInto(containerId) {
   let html = '';
-  ROSARIO_INTENTIONS.forEach((intention, i) => {
-    html += `<div class="rosario-intention-card">
-      <div class="rosario-intention-num">${i + 1}</div>
-      <div class="rosario-intention-body">
-        <div class="rosario-intention-text">${intention}</div>
-        <button class="rosario-intention-pray-btn" onclick="prayForRosarioIntention('${intention.replace(/'/g, "\\'")}')">Prier pour cette intention →</button>
-      </div>
-    </div>`;
+  ROSARIO_INTENTIONS.forEach(function(intention, i) {
+    html += '<div class="rosario-intention-card">';
+    html += '<div class="rosario-intention-num">' + (i + 1) + '</div>';
+    html += '<div class="rosario-intention-body">';
+    html += '<div class="rosario-intention-text">' + intention + '</div>';
+    html += '<button class="rosario-intention-pray-btn" onclick="prayForRosarioIntention(ROSARIO_INTENTIONS[' + i + '])">Prier pour cette intention →</button>';
+    html += '</div></div>';
   });
   document.getElementById(containerId).innerHTML = html;
 }
