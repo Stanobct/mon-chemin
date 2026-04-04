@@ -119,7 +119,11 @@ body{font-family:'DM Sans',sans-serif;background:#0F0C09;color:#F2EDE6;min-heigh
 .rosario-intention-label{font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);margin-bottom:5px}
 .rosario-intention-text{font-family:'Cormorant Garamond',serif;font-size:15px;color:#F2EDE6;line-height:1.55;font-style:italic;margin-bottom:14px}
 .rosario-footer{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.rosario-intention-pray-btn{display:block;width:100%;margin:10px 0 6px 0;padding:9px 0;background:transparent;border:1px solid var(--accent);color:var(--accent);border-radius:var(--radius);font-size:13px;font-weight:500;cursor:pointer;text-align:center;transition:background .15s,color .15s}
+.rosario-intention-card{display:flex;align-items:flex-start;gap:14px;background:#181310;border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:14px}
+.rosario-intention-num{min-width:28px;height:28px;border-radius:50%;background:var(--accent);color:#1a1009;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.rosario-intention-body{flex:1}
+.rosario-intention-text{font-size:15px;color:#F2EDE6;line-height:1.5;margin-bottom:12px;font-family:'Cormorant Garamond',serif;font-weight:500}
+.rosario-intention-pray-btn{display:inline-block;padding:9px 16px;background:transparent;border:1px solid var(--accent);color:var(--accent);border-radius:var(--radius);font-size:13px;font-weight:500;cursor:pointer;transition:background .15s,color .15s}
 .rosario-intention-pray-btn:hover{background:var(--accent);color:#1a1009}
 .rosario-pray-btn{flex:1;padding:10px;background:#1E180F;border:1px solid rgba(201,165,90,0.35);border-radius:var(--radius-sm);color:#C9A55A;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-align:center;transition:background 0.15s}
 .rosario-pray-btn:active{background:#281F0A}
@@ -543,6 +547,37 @@ const ROSARIO_INTENTIONS = [
   'Pour le respect de la vie'
 ];
 
+let rosarioIntentionActive = null;
+
+function prayForRosarioIntention(intention) {
+  rosarioIntentionActive = intention;
+  // Pré-remplir le champ intention de la dizaine rapide
+  showPage('chapelet');
+  setMode('rapide');
+  const input = document.getElementById('intention-input-rapide');
+  if (input) input.value = intention;
+  // Afficher le bandeau
+  renderRosarioIntentionBanner();
+}
+
+function renderRosarioIntentionBanner() {
+  const existing = document.getElementById('rosario-intention-banner');
+  if (existing) existing.remove();
+  if (!rosarioIntentionActive) return;
+  const banner = document.createElement('div');
+  banner.id = 'rosario-intention-banner';
+  banner.innerHTML = \`<span style="font-size:15px;margin-right:6px">🕊</span><span><strong>Intention&nbsp;:</strong> \${rosarioIntentionActive}</span><button onclick="clearRosarioIntentionBanner()" style="background:none;border:none;color:var(--muted);font-size:16px;cursor:pointer;margin-left:auto;padding:0">✕</button>\`;
+  banner.style.cssText = 'display:flex;align-items:center;gap:6px;background:#1e160a;border:1px solid var(--accent);border-radius:var(--radius);padding:10px 14px;margin-bottom:14px;font-size:13px;color:#F2EDE6;line-height:1.4';
+  const modeRapide = document.getElementById('mode-rapide');
+  if (modeRapide) modeRapide.insertBefore(banner, modeRapide.firstChild);
+}
+
+function clearRosarioIntentionBanner() {
+  rosarioIntentionActive = null;
+  const b = document.getElementById('rosario-intention-banner');
+  if (b) b.remove();
+}
+
 const ROSARIO_GROUPS = [
   {
     id: 'g1',
@@ -601,45 +636,16 @@ function renderRosario() {
 }
 
 function renderRosarioInto(containerId) {
-  const mystereIdx = getTodayMystereIdx();
-  const mystere = MYSTERES[mystereIdx];
-  const JOURS = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
-  const today = JOURS[new Date().getDay()];
-  const checked = getRosarioChecked();
-
-  let html = `<div class="rosario-day-banner">
-    Mystères du jour &nbsp;<span>${mystere.name.replace('Mystères ','').replace('mystères ','')}</span>
-    <span style="color:var(--muted);font-size:11px">${today}</span>
-  </div>`;
-
-  ROSARIO_GROUPS.forEach(group => {
-    const dizaineItem = mystere.items[group.dizaine - 1]; // dizaine is 1-indexed
-    const isDone = !!checked[group.id];
-
-    html += `<div class="rosario-card" id="rosario-card-${group.id}" style="${isDone ? 'opacity:0.65' : ''}">
-      <div class="rosario-card-header">
-        <div>
-          <div class="rosario-group-name">${group.name}</div>
-          <div class="rosario-group-sub">${group.dizaine}e dizaine</div>
-        </div>
-        <div class="rosario-dizaine-num">${group.dizaine}</div>
-      </div>
-      <div class="rosario-body">
-        <div class="rosario-mystery-title">${dizaineItem.titre}</div>
-        <div class="rosario-intention-label">Intention</div>
-        <div class="rosario-intention-text">${group.intention}</div>
-        <button class="rosario-intention-pray-btn" onclick="prayRosarioDizaine(${mystereIdx}, ${group.dizaine - 1})">Prier pour cette intention</button>
-        <div class="rosario-footer">
-          <button class="rosario-pray-btn" onclick="prayRosarioDizaine(${mystereIdx}, ${group.dizaine - 1})">Prier cette dizaine</button>
-          <div class="rosario-check-wrap" onclick="toggleRosarioCheck('${group.id}')">
-            <div class="rosario-checkbox ${isDone ? 'checked' : ''}" id="rosario-chk-${group.id}"></div>
-            <span class="rosario-check-label">${isDone ? 'Priée ✓' : 'Priée ?'}</span>
-          </div>
-        </div>
+  let html = '';
+  ROSARIO_INTENTIONS.forEach((intention, i) => {
+    html += `<div class="rosario-intention-card">
+      <div class="rosario-intention-num">${i + 1}</div>
+      <div class="rosario-intention-body">
+        <div class="rosario-intention-text">${intention}</div>
+        <button class="rosario-intention-pray-btn" onclick="prayForRosarioIntention('${intention.replace(/'/g, "\\'")}')">Prier pour cette intention →</button>
       </div>
     </div>`;
   });
-
   document.getElementById(containerId).innerHTML = html;
 }
 
